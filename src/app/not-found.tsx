@@ -7,9 +7,7 @@ export default function NotFound() {
       <Container>
         <p className="font-mono text-xs text-gray-2">404</p>
         <h1 className="mt-2 text-h2 font-medium">There is no page at this address.</h1>
-        <p className="mt-3 text-base text-gray">
-          <Link href="/" className="text-ink underline underline-offset-4">Back to qorpe.com</Link>
-        </p>
+        <p className="mt-3 text-base text-gray"><Link href="/" className="text-ink underline underline-offset-4">Back to qorpe.com</Link></p>
       </Container>
     </main>
   );

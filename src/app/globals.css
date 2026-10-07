@@ -1,93 +1,112 @@
 @import "tailwindcss";
 
 /* ============================================================================
-   Tokens — one dark ground, two lifted surfaces, half-pixel edges.
-   Measured from the reference: ground #08090a, ink #f7f8f8, gray #8a8f98,
-   frames #0f1011 with a 0.5px white/12 edge and a long soft shadow.
+   Tokens, measured from the reference on 2026-10-07.
+   Page white; a soft grey band for the long sections; black islands.
    ========================================================================== */
 :root {
-  --ground: #08090a;
-  --frame: #0f1011;
-  --frame-2: #141516;
-  --edge: rgb(255 255 255 / 0.08);
-  --edge-2: rgb(255 255 255 / 0.12);
-  --ink: #f7f8f8;
-  --ink-2: #d0d6e0;
-  --gray: #8a8f98;
-  --gray-2: #62666d;
-  --ok: #4cc38a;
-  --warn: #f0b442;
-  --accent: #5e6ad2;
+  --page: #ffffff;
+  --band: #f8f8f9;
+  --ink: #1a1a1c;
+  --ink-2: #26282c;
+  --gray: #767a80;
+  --gray-2: #9a9ea5;
+  --line: #e6e6e8;
+  --line-2: #d8d9db;
+  --line-3: #eeeef0;
+  --chip: #f4f4f5;
+  --tag-bg: #eef2ff;
+  --tag-ink: #3b5bdb;
+  --ok: #1f9d55;
+  --warn: #c98a00;
 
-  --font-sans:
-    var(--font-geist), "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono:
-    var(--font-geist-mono), ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
-  color-scheme: dark;
+  --dark: #101010;
+  --dark-2: #161617;
+  --dark-line: rgb(255 255 255 / 0.1);
+  --dark-ink: #f9f9fa;
+  --dark-gray: #9a9ea5;
+  --dark-tag-bg: #0f1d3d;
+  --dark-tag-ink: #c3d4f7;
+
+  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
 }
 
 @theme inline {
-  --color-ground: var(--ground);
-  --color-frame: var(--frame);
-  --color-frame-2: var(--frame-2);
-  --color-edge: var(--edge);
-  --color-edge-2: var(--edge-2);
+  --color-page: var(--page);
+  --color-band: var(--band);
   --color-ink: var(--ink);
   --color-ink-2: var(--ink-2);
   --color-gray: var(--gray);
   --color-gray-2: var(--gray-2);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --color-line-3: var(--line-3);
+  --color-chip: var(--chip);
   --color-ok: var(--ok);
   --color-warn: var(--warn);
-  --color-accent: var(--accent);
+  --color-dark: var(--dark);
+  --color-dark-2: var(--dark-2);
+  --color-dark-line: var(--dark-line);
+  --color-dark-ink: var(--dark-ink);
+  --color-dark-gray: var(--dark-gray);
   --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
   --font-mono: var(--font-mono);
 }
 
 @theme {
   --text-xs: 12px;
-  --text-xs--line-height: 1.5;
-  --text-sm: 13px;
-  --text-sm--line-height: 1.5;
-  --text-base: 15px;
-  --text-base--line-height: 1.6;
-  --text-md: 17px;
-  --text-md--line-height: 1.55;
-  --text-lg: 20px;
-  --text-lg--line-height: 1.4;
-  --text-lg--letter-spacing: -0.012em;
-  --text-h2: clamp(2rem, 3.4vw, 3rem);
-  --text-h2--line-height: 1.08;
-  --text-h2--letter-spacing: -0.022em;
-  --text-h1: clamp(2.6rem, 4.6vw, 4rem);
-  --text-h1--line-height: 1.0;
-  --text-h1--letter-spacing: -0.022em;
-  --text-closing: clamp(2.6rem, 5.2vw, 4.5rem);
-  --text-closing--line-height: 1.02;
-  --text-closing--letter-spacing: -0.022em;
+  --text-xs--line-height: 18px;
+  --text-sm: 14px;
+  --text-sm--line-height: 20px;
+  --text-base: 16px;
+  --text-base--line-height: 22px;
+  --text-base--letter-spacing: -0.01em;
+  --text-lead: 18px;
+  --text-lead--line-height: 24px;
+  --text-lead--letter-spacing: -0.01em;
+  --text-h3: 24px;
+  --text-h3--line-height: 30px;
+  --text-h3--letter-spacing: -0.01em;
+  --text-h2: clamp(28px, 2.8vw, 40px);
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.01em;
+  --text-cta: clamp(36px, 3.9vw, 56px);
+  --text-cta--line-height: 1;
+  --text-cta--letter-spacing: -0.015em;
+  --text-h1: clamp(40px, 4.5vw, 64px);
+  --text-h1--line-height: 0.95;
+  --text-h1--letter-spacing: -0.02em;
+  --text-giant: clamp(56px, 6.7vw, 96px);
+  --text-giant--line-height: 1;
+  --text-giant--letter-spacing: -0.024em;
 }
 
 @layer base {
   * {
-    border-color: var(--edge);
+    border-color: var(--line);
   }
   html {
     scroll-behavior: smooth;
     scrollbar-gutter: stable;
   }
   body {
-    background: var(--ground);
+    background: var(--page);
     color: var(--ink);
     font-family: var(--font-sans);
-    font-size: var(--text-base);
-    line-height: var(--text-base--line-height);
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: -0.01em;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    background: rgb(94 106 210 / 0.35);
+    background: var(--tag-bg);
   }
   :focus-visible {
-    outline: 2px solid var(--ink);
+    outline: 2px solid var(--tag-ink);
     outline-offset: 3px;
     border-radius: 8px;
   }
@@ -105,76 +124,104 @@
   mask: url("/brand/qorpe-mark-black.svg") center / contain no-repeat;
 }
 
-/* Buttons. The primary is a white pill, the way the reference signs people up. */
+/* ---------- Buttons: 36px, radius 10, 14/500. ---------- */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  height: 32px;
-  padding: 0 14px;
-  border-radius: 999px;
-  font-size: 13px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 1;
+  letter-spacing: -0.005em;
+  line-height: 20px;
   white-space: nowrap;
   transition:
-    background-color 120ms ease,
-    color 120ms ease,
-    border-color 120ms ease;
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
 }
 .btn-primary {
-  background: var(--ink);
-  color: #08090a;
+  background: #1f1f22;
+  color: #f4f4f5;
+  border: 1px solid #4d5157;
 }
 .btn-primary:hover {
-  background: #ffffff;
+  background: #2c2d31;
 }
 .btn-secondary {
-  background: rgb(255 255 255 / 0.06);
-  color: var(--ink);
-  border: 0.5px solid var(--edge-2);
+  background: #fff;
+  color: var(--ink-2);
+  border: 1px solid var(--line-2);
 }
 .btn-secondary:hover {
-  background: rgb(255 255 255 / 0.1);
+  background: var(--chip);
 }
-.btn-ghost {
-  color: var(--gray);
-}
-.btn-ghost:hover {
-  color: var(--ink);
+.btn-sm {
+  height: 32px;
+  font-size: 12px;
+  line-height: 18px;
+  padding: 0 6px 0 10px;
 }
 .btn-lg {
   height: 40px;
-  padding: 0 18px;
-  font-size: 14px;
+}
+.dark-zone .btn-primary {
+  background: #101010;
+  color: #eeeef0;
+  border-color: #2b2d31;
+}
+.dark-zone .btn-primary:hover {
+  background: #1a1a1c;
+}
+.dark-zone .btn-secondary {
+  background: transparent;
+  color: var(--dark-ink);
+  border-color: rgb(255 255 255 / 0.16);
+}
+.dark-zone .btn-secondary:hover {
+  background: rgb(255 255 255 / 0.06);
 }
 
-/* Frames: the dark panel every visual sits in. */
-.frame {
-  background: var(--frame);
-  border: 0.5px solid var(--edge-2);
-  border-radius: 12px;
-  box-shadow: 0 2px 32px rgb(0 0 0 / 0.25);
-}
-.frame-soft {
-  background: rgb(255 255 255 / 0.02);
-  border: 0.5px solid rgb(255 255 255 / 0.06);
+/* ---------- Tag (section pill) ---------- */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 6px;
   border-radius: 8px;
+  background: var(--tag-bg);
+  color: var(--tag-ink);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.dark-zone .tag {
+  background: var(--dark-tag-bg);
+  color: var(--dark-tag-ink);
 }
 
-/* Header menu panel: lifted frame, three columns, a "new" strip at the bottom. */
+/* ---------- Header dropdown panel ---------- */
 .menu-panel {
-  background: var(--frame-2);
-  border: 0.5px solid var(--edge-2);
-  border-radius: 12px;
-  box-shadow: 0 8px 40px rgb(0 0 0 / 0.5);
+  background: rgb(255 255 255 / 0.95);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border-radius: 16px;
+  box-shadow:
+    0 0 0 1px rgb(20 20 22 / 0.08),
+    0 1px 3px rgb(0 0 0 / 0.02),
+    0 2px 4px -1px rgb(0 0 0 / 0.02),
+    0 4px 8px -2px rgb(0 0 0 / 0.03),
+    0 8px 16px -4px rgb(0 0 0 / 0.04),
+    0 16px 32px -8px rgb(0 0 0 / 0.05);
   opacity: 0;
   translate: 0 6px;
   pointer-events: none;
   transition:
-    opacity 140ms ease,
-    translate 140ms ease;
+    opacity 0.15s ease,
+    translate 0.2s ease;
 }
 .menu-open .menu-panel {
   opacity: 1;
@@ -185,24 +232,163 @@
   display: block;
   padding: 8px 10px;
   border-radius: 8px;
-  transition: background-color 100ms ease;
+  transition: background-color 0.2s ease;
 }
 .menu-item:hover {
-  background: rgb(255 255 255 / 0.05);
+  background: var(--chip);
 }
 .menu-chevron {
-  transition: rotate 140ms ease;
+  transition: rotate 0.2s ease;
 }
 .menu-open .menu-chevron {
   rotate: 180deg;
 }
 
-/* The light under the hero frame. One glow, not a wash. */
-.hero-glow {
-  background: radial-gradient(50% 60% at 50% 0%, rgb(255 255 255 / 0.07), transparent 70%);
+/* ---------- Product window ---------- */
+.window {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow:
+    0 0 0 1px rgb(20 20 22 / 0.08),
+    0 2px 6px rgb(0 0 0 / 0.03),
+    0 24px 60px -24px rgb(0 0 0 / 0.18);
 }
 
-/* The closing rings drift; a quiet motion the eye reads as depth, not decoration. */
+/* ---------- Scroll reveal: 0.55s rise, once ---------- */
+.reveal {
+  opacity: 0;
+  translate: 0 14px;
+  transition:
+    opacity 0.55s cubic-bezier(0.2, 0.7, 0.2, 1),
+    translate 0.55s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.is-in {
+  opacity: 1;
+  translate: 0 0;
+}
+.reveal-2 { transition-delay: 0.08s; }
+.reveal-3 { transition-delay: 0.16s; }
+
+/* ---------- Sticky rail (the platform tabs) ---------- */
+.rail-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 16px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  line-height: 20px;
+  color: var(--gray-2);
+  background: transparent;
+  transition:
+    color 0.32s ease,
+    background-color 0.32s ease;
+}
+.rail-btn[data-active="true"] {
+  color: var(--ink);
+  background: var(--chip);
+}
+
+/* ---------- Horizon (the island's planet edge) ---------- */
+.horizon-wrap {
+  position: relative;
+  height: 360px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+.horizon {
+  position: absolute;
+  left: 50%;
+  top: 110px;
+  width: 200vw;
+  max-width: 2600px;
+  aspect-ratio: 1;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: var(--dark);
+  box-shadow:
+    0 -1px 0 0 rgb(255 255 255 / 0.7),
+    0 -2px 30px 0 rgb(140 160 255 / 0.55),
+    0 -16px 90px 0 rgb(80 110 255 / 0.38),
+    0 -60px 200px 0 rgb(60 90 240 / 0.2);
+}
+.horizon::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 255deg at 50% 50%,
+    transparent 0deg,
+    rgb(255 170 90 / 0.95) 35deg,
+    rgb(255 255 255 / 1) 55deg,
+    rgb(150 180 255 / 0.95) 80deg,
+    transparent 110deg
+  );
+  -webkit-mask: radial-gradient(closest-side, transparent calc(100% - 3px), #000 calc(100% - 1px));
+  mask: radial-gradient(closest-side, transparent calc(100% - 3px), #000 calc(100% - 1px));
+  filter: blur(0.3px);
+}
+.horizon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow:
+    0 -6px 40px 6px rgb(120 150 255 / 0.35),
+    0 -30px 120px 20px rgb(70 100 250 / 0.22);
+  -webkit-mask: linear-gradient(to bottom, #000, transparent 30%);
+  mask: linear-gradient(to bottom, #000, transparent 30%);
+}
+.horizon-wrap.is-in .horizon {
+  animation: horizon-reveal 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes horizon-reveal {
+  from { opacity: 0; translate: -50% 60px; }
+  to { opacity: 1; translate: -50% 0; }
+}
+
+/* ---------- Rings (the mark's motif) ---------- */
+.rings-spin {
+  transform-origin: 50% 50%;
+  animation: rings-spin 80s linear infinite;
+}
+@keyframes rings-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- Accordion progress ---------- */
+.progress {
+  height: 1px;
+  background: var(--dark-line);
+  overflow: hidden;
+}
+.progress > span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--dark-ink);
+  transform-origin: left;
+  animation: progress 7s linear forwards;
+}
+@keyframes progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* ---------- CTA band ---------- */
+.ruled {
+  background-image: repeating-linear-gradient(
+    to right,
+    rgb(255 255 255 / 0.045) 0,
+    rgb(255 255 255 / 0.045) 1px,
+    transparent 1px,
+    transparent 96px
+  );
+}
 @keyframes drift-a {
   from { transform: translate3d(-3%, 4%, 0) rotate(0deg); }
   to { transform: translate3d(3%, -4%, 0) rotate(14deg); }
@@ -213,16 +399,10 @@
 }
 .ring-a { animation: drift-a 30s ease-in-out infinite alternate; }
 .ring-b { animation: drift-b 36s ease-in-out infinite alternate; }
-@media (prefers-reduced-motion: reduce) {
-  .ring-a, .ring-b { animation: none; }
-  .menu-panel { transition: none; }
-}
 
-/* Mono caps label (the reference's "powering the companies…"). Used once. */
-.caps {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--gray-2);
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; translate: 0 0; transition: none; }
+  .horizon-wrap.is-in .horizon, .rings-spin, .ring-a, .ring-b, .progress > span { animation: none; }
+  .progress > span { transform: none; }
+  .menu-panel { transition: none; }
 }

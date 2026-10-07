@@ -1,22 +1,28 @@
-import { Header } from "@/components/header";
-import { AiSection } from "@/components/ai-section";
-import { Closing, Deploy, Footer, Hero, Modules, Release, Services, Specify, Statement, Verify } from "@/components/sections";
+import { Announcement, Header } from "@/components/header";
+import { Platform } from "@/components/platform";
+import { AiIsland, BuildIsland, TrailIsland } from "@/components/dark";
+import { Changelog, CtaBand, Footer, Hero, Modules, Quote, Ready, Scale, Sectors, Services, Strip } from "@/components/sections";
 
 export default function Home() {
   return (
     <>
+      <Announcement />
       <Header />
       <main>
         <Hero />
-        <Statement />
-        <Specify />
-        <Verify />
-        <Release />
-        <AiSection />
+        <Strip />
+        <Platform />
+        <Ready />
+        <TrailIsland />
+        <AiIsland />
+        <BuildIsland />
+        <Quote />
+        <Scale />
         <Modules />
-        <Deploy />
+        <Sectors />
         <Services />
-        <Closing />
+        <Changelog />
+        <CtaBand />
       </main>
       <Footer />
     </>

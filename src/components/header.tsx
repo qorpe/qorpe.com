@@ -5,101 +5,129 @@ import Link from "next/link";
 import { Arrow, Container } from "./ui";
 
 type Item = { title: string; desc?: string; href: string };
-type Column = { heading?: string; items: Item[] };
-type Menu = { label: string; columns: Column[]; aside: Item[]; strip: { tag: string; text: string; href: string } };
+type Column = { heading: string; items: Item[] };
+type Menu = { label: string; columns: Column[]; aside: Column[] };
 
 const MENUS: Menu[] = [
   {
     label: "Platform",
     columns: [
       {
+        heading: "Control Room",
         items: [
-          { title: "Specifications", desc: "Versioned rules and contracts every change starts from", href: "#specify" },
-          { title: "Gates", desc: "Deterministic checks that block, not warn", href: "#verify" },
+          { title: "Specifications", desc: "Versioned rules and contracts", href: "#specify" },
+          { title: "Gates", desc: "Deterministic checks that block", href: "#verify" },
+          { title: "Approvals", desc: "Maker-checker chains, recorded", href: "#approve" },
+          { title: "Audit trail", desc: "One record an auditor can read", href: "#trail" },
+          { title: "Releases", desc: "Pinned, signed, with an SBOM", href: "#release" },
         ],
       },
       {
+        heading: "AI in delivery",
         items: [
-          { title: "Approvals", desc: "Maker-checker chains, recorded per revision", href: "#verify" },
-          { title: "Release", desc: "Pinned, signed, with an SBOM on every train", href: "#release" },
+          { title: "Skills", desc: "Agents drive the cycle, not around it", href: "#ai" },
+          { title: "Verifiers over MCP", desc: "The same gates a person calls", href: "#ai" },
+          { title: "AI gateway", desc: "Policy and trail for model calls", href: "#ai" },
+        ],
+      },
+      {
+        heading: "Deployment",
+        items: [
+          { title: "On-premises", desc: "Inside your estate, your identity", href: "#scale" },
+          { title: "Air-gapped", desc: "A supported configuration", href: "#scale" },
+          { title: "Signed releases", desc: "SBOM and provenance on every train", href: "#scale" },
         ],
       },
     ],
     aside: [
-      { title: "AI in delivery", href: "#ai" },
-      { title: "Deployment", href: "#deploy" },
-      { title: "Sectors", href: "#deploy" },
-      { title: "Request a demo", href: "mailto:hello@qorpe.com?subject=Demo%20request" },
+      { heading: "Qorpe for", items: [{ title: "Banking", href: "#sectors" }, { title: "Insurance", href: "#sectors" }, { title: "Telecom", href: "#sectors" }] },
+      { heading: "Get started", items: [{ title: "Request a demo", href: "mailto:hello@qorpe.com?subject=Demo%20request" }, { title: "Talk to us", href: "mailto:hello@qorpe.com" }] },
     ],
-    strip: { tag: "Preview", text: "Control Room 0.1 is in private preview", href: "mailto:hello@qorpe.com?subject=Control%20Room%20preview" },
   },
   {
     label: "Modules",
     columns: [
       {
+        heading: "Enterprise modules",
         items: [
-          { title: "API Portal", desc: "Governed partner onboarding with an instant sandbox", href: "#modules" },
-          { title: "Coexist", desc: "Old and new side by side, reconciled independently", href: "#modules" },
+          { title: "API Portal", desc: "Governed partner onboarding and sandbox", href: "#modules" },
+          { title: "Coexist", desc: "Old and new side by side, reconciled", href: "#modules" },
+          { title: "Approvals", desc: "The approval engine for any workflow", href: "#modules" },
         ],
       },
       {
+        heading: "Rails",
         items: [
-          { title: "Approvals", desc: "The approval engine for any workflow", href: "#modules" },
           { title: "File Exchange", desc: "Governed batch and partner transfers", href: "#modules" },
+          { title: "Idempotency", desc: "Exactly-once for payment-grade operations", href: "#modules" },
+          { title: "Messaging", desc: "A swappable bus seam", href: "#modules" },
         ],
       },
     ],
     aside: [
-      { title: "Idempotency", href: "#modules" },
-      { title: "Messaging", href: "#modules" },
-      { title: "Open foundations", href: "https://github.com/qorpe" },
+      { heading: "Open foundations", items: [{ title: "Goldpath", href: "https://github.com/qorpe/goldpath" }, { title: "specdrift", href: "https://specdrift.qorpe.com" }, { title: "Mockifyr", href: "https://mockifyr.qorpe.com" }, { title: "Mediant", href: "https://mediant.qorpe.com" }] },
+      { heading: "Company", items: [{ title: "Changelog", href: "#changelog" }, { title: "Contact", href: "mailto:hello@qorpe.com" }] },
     ],
-    strip: { tag: "New", text: "File Exchange is available on the current train", href: "#modules" },
   },
 ];
 
 const LINKS = [
   { label: "Services", href: "#services" },
-  { label: "Contact", href: "mailto:hello@qorpe.com" },
+  { label: "Sectors", href: "#sectors" },
+  { label: "Changelog", href: "#changelog" },
 ];
 
-function Chevron() {
+function Chev() {
   return (
-    <svg className="menu-chevron" width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+    <svg className="menu-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
       <path d="M3 4.5l3 3 3-3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
-function MenuPanel({ menu }: { menu: Menu }) {
+function Panel({ menu }: { menu: Menu }) {
   return (
-    <div className="menu-panel absolute left-0 top-full mt-3 w-[min(940px,calc(100vw-48px))] overflow-hidden" role="menu">
-      <div className="grid grid-cols-[1fr_1fr_220px]">
-        {menu.columns.map((col, i) => (
-          <div key={i} className="border-r border-edge p-3">
+    <div className="menu-panel absolute left-6 top-full mt-2 w-[min(1064px,calc(100vw-48px))] overflow-hidden" role="menu">
+      <div className="grid" style={{ gridTemplateColumns: `repeat(${menu.columns.length}, minmax(0, 1fr)) 220px` }}>
+        {menu.columns.map((col) => (
+          <div key={col.heading} className="p-4">
+            <div className="px-2.5 pb-2 text-xs text-gray-2">{col.heading}</div>
             {col.items.map((it) => (
               <a key={it.title} href={it.href} className="menu-item" role="menuitem">
                 <div className="text-sm font-medium text-ink">{it.title}</div>
-                {it.desc ? <div className="mt-0.5 text-xs leading-5 text-gray">{it.desc}</div> : null}
+                {it.desc ? <div className="text-xs text-gray">{it.desc}</div> : null}
               </a>
             ))}
           </div>
         ))}
-        <div className="p-3">
-          {menu.aside.map((it) => (
-            <a key={it.title} href={it.href} className="menu-item py-2 text-sm text-ink-2" role="menuitem">
-              {it.title}
-            </a>
+        <div className="bg-band p-4">
+          {menu.aside.map((col) => (
+            <div key={col.heading} className="mb-3 last:mb-0">
+              <div className="px-2.5 pb-1.5 text-xs text-gray-2">{col.heading}</div>
+              {col.items.map((it) => (
+                <a key={it.title} href={it.href} className="menu-item py-1.5 text-sm text-ink-2 hover:bg-[#ededef]" role="menuitem">
+                  {it.title}
+                </a>
+              ))}
+            </div>
           ))}
         </div>
       </div>
-      <a href={menu.strip.href} className="flex items-center justify-between border-t border-edge bg-frame px-5 py-3 text-sm hover:bg-frame-2">
-        <span className="flex items-center gap-2.5">
-          <span className="font-medium text-ink">{menu.strip.tag}</span>
-          <span className="text-gray">{menu.strip.text}</span>
-        </span>
-        <span className="inline-flex items-center gap-1.5 text-gray">Learn more <Arrow /></span>
+    </div>
+  );
+}
+
+export function Announcement() {
+  const [gone, setGone] = useState(false);
+  if (gone) return null;
+  return (
+    <div className="relative bg-dark text-dark-ink">
+      <a href="mailto:hello@qorpe.com?subject=Control%20Room%20preview" className="mx-auto flex h-12 max-w-[1168px] items-center justify-center gap-1.5 px-6 text-sm font-medium">
+        <span className="hidden sm:inline">Control Room is in private preview. Request access</span><span className="sm:hidden">Control Room: private preview</span> <Arrow />
       </a>
+      <button type="button" aria-label="Dismiss banner" onClick={() => setGone(true)} className="absolute right-4 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-dark-gray hover:text-dark-ink">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+      </button>
     </div>
   );
 }
@@ -110,125 +138,94 @@ export function Header() {
   const [section, setSection] = useState<string | null>("Platform");
   const timer = useRef<number | null>(null);
 
-  const show = (label: string) => {
-    if (timer.current) window.clearTimeout(timer.current);
-    setOpen(label);
-  };
-  const hide = () => {
-    if (timer.current) window.clearTimeout(timer.current);
-    timer.current = window.setTimeout(() => setOpen(null), 120);
-  };
+  const show = (label: string) => { if (timer.current) window.clearTimeout(timer.current); setOpen(label); };
+  const hide = () => { if (timer.current) window.clearTimeout(timer.current); timer.current = window.setTimeout(() => setOpen(null), 120); };
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setOpen(null);
-        setMobile(false);
-      }
-    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") { setOpen(null); setMobile(false); } };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
-
   useEffect(() => {
     document.body.style.overflow = mobile ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, [mobile]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-edge bg-ground/80 backdrop-blur-md">
-      <Container className="flex h-16 items-center justify-between">
+    <header className="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur-md">
+      <Container className="relative flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5" aria-label="Qorpe home">
-          <span className="mark h-6 w-6 text-ink" aria-hidden="true" />
-          <span className="text-[17px] font-semibold tracking-[-0.02em]">qorpe</span>
+          <span className="mark h-7 w-7 text-ink" aria-hidden="true" />
+          <span className="text-[18px] font-semibold tracking-[-0.02em]">qorpe</span>
         </Link>
 
-        <nav className="hidden items-center gap-0.5 md:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
           {MENUS.map((m) => (
             <div
               key={m.label}
-              className={`relative ${open === m.label ? "menu-open" : ""}`}
+              className={`${open === m.label ? "menu-open" : ""}`}
               onMouseEnter={() => show(m.label)}
               onMouseLeave={hide}
               onFocus={() => show(m.label)}
-              onBlur={(e) => {
-                if (!e.currentTarget.contains(e.relatedTarget as Node)) hide();
-              }}
+              onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) hide(); }}
             >
               <button
                 type="button"
-                className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${open === m.label ? "bg-white/[0.06] text-ink" : "text-gray hover:text-ink"}`}
+                className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[15px] font-medium text-ink-2 transition-colors duration-200 hover:bg-chip ${open === m.label ? "bg-chip" : ""}`}
                 aria-haspopup="menu"
                 aria-expanded={open === m.label}
                 onClick={() => setOpen(open === m.label ? null : m.label)}
               >
                 {m.label}
-                <Chevron />
+                <Chev />
               </button>
-              <MenuPanel menu={m} />
+              <Panel menu={m} />
             </div>
           ))}
           {LINKS.map((l) => (
-            <a key={l.href} href={l.href} className="rounded-md px-3 py-1.5 text-sm font-medium text-gray transition-colors hover:text-ink">
+            <a key={l.href} href={l.href} className="rounded-lg px-3 py-1.5 text-[15px] font-medium text-ink-2 transition-colors duration-200 hover:bg-chip">
               {l.label}
             </a>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
-          <a href="mailto:hello@qorpe.com" className="text-sm font-medium text-gray hover:text-ink">Talk to us</a>
+        <div className="hidden items-center gap-2 md:flex">
+          <a href="mailto:hello@qorpe.com" className="btn btn-secondary">Talk to us</a>
           <a href="mailto:hello@qorpe.com?subject=Demo%20request" className="btn btn-primary">Request a demo</a>
         </div>
 
-        <button
-          type="button"
-          className="rounded-md p-2 text-gray hover:text-ink md:hidden"
-          aria-expanded={mobile}
-          aria-controls="mobile-nav"
-          aria-label={mobile ? "Close menu" : "Open menu"}
-          onClick={() => setMobile((v) => !v)}
-        >
+        <button type="button" className="rounded-lg p-2 text-ink-2 hover:bg-chip md:hidden" aria-expanded={mobile} aria-controls="mobile-nav" aria-label={mobile ? "Close menu" : "Open menu"} onClick={() => setMobile((v) => !v)}>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            {mobile ? (
-              <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-            ) : (
-              <path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-            )}
+            {mobile ? <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /> : <path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />}
           </svg>
         </button>
       </Container>
 
       {mobile ? (
-        <nav id="mobile-nav" className="fixed inset-x-0 top-16 bottom-0 overflow-y-auto border-t border-edge bg-ground md:hidden" aria-label="Primary">
-          <Container className="py-2">
+        <nav id="mobile-nav" className="fixed inset-x-0 top-16 bottom-0 overflow-y-auto border-t border-line bg-white md:hidden" aria-label="Primary">
+          <Container className="py-3">
             {MENUS.map((m) => (
-              <div key={m.label} className="border-b border-edge">
-                <button
-                  type="button"
-                  className="flex w-full items-center justify-between py-4 text-[16px] font-medium"
-                  aria-expanded={section === m.label}
-                  onClick={() => setSection(section === m.label ? null : m.label)}
-                >
+              <div key={m.label} className="border-b border-line">
+                <button type="button" className="flex w-full items-center justify-between py-3.5 text-[16px] font-medium" aria-expanded={section === m.label} onClick={() => setSection(section === m.label ? null : m.label)}>
                   {m.label}
-                  <span className={section === m.label ? "menu-open" : ""}><Chevron /></span>
+                  <span className={section === m.label ? "menu-open" : ""}><Chev /></span>
                 </button>
                 {section === m.label ? (
-                  <div className="grid gap-1 pb-4">
-                    {[...m.columns.flatMap((c) => c.items), ...m.aside].map((it) => (
-                      <a key={it.title} href={it.href} onClick={() => setMobile(false)} className="py-1.5 text-[15px] text-ink-2">
-                        {it.title}
-                      </a>
+                  <div className="grid gap-5 pb-4 sm:grid-cols-2">
+                    {[...m.columns, ...m.aside].map((col) => (
+                      <div key={col.heading}>
+                        <div className="pb-1.5 text-xs text-gray-2">{col.heading}</div>
+                        {col.items.map((it) => (
+                          <a key={it.title} href={it.href} onClick={() => setMobile(false)} className="block py-1.5 text-[15px] text-ink-2">{it.title}</a>
+                        ))}
+                      </div>
                     ))}
                   </div>
                 ) : null}
               </div>
             ))}
             {LINKS.map((l) => (
-              <a key={l.href} href={l.href} onClick={() => setMobile(false)} className="block border-b border-edge py-4 text-[16px] font-medium">
-                {l.label}
-              </a>
+              <a key={l.href} href={l.href} onClick={() => setMobile(false)} className="block border-b border-line py-3.5 text-[16px] font-medium">{l.label}</a>
             ))}
             <div className="flex flex-col gap-2 pt-5">
               <a href="mailto:hello@qorpe.com?subject=Demo%20request" className="btn btn-primary btn-lg">Request a demo</a>
