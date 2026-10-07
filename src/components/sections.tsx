@@ -1,5 +1,5 @@
 import { Arrow, Chevron, Container, Reveal, Tag } from "./ui";
-import { ModulesVisual, ProductWindow } from "./visuals";
+import { LineChart, ModulesVisual, ProductWindow } from "./visuals";
 import { Newsletter } from "./newsletter";
 
 /* ---------- Hero ---------- */
@@ -108,7 +108,8 @@ export function Scale() {
           <h2 className="text-h2 font-medium">
             Run inside your perimeter. <span className="text-gray">Production-grade for your estate and your agents.</span>
           </h2>
-          <dl className="mt-10 grid grid-cols-2 gap-y-8">
+          <div className="mt-10 rounded-xl border border-line p-4"><LineChart /><div className="mt-2 flex justify-between text-xs text-gray-2"><span>Jul 2026</span><span>Oct 2026</span></div></div>
+          <dl className="mt-8 grid grid-cols-2 gap-y-8">
             {FACTS.map((f) => (
               <div key={f.small} className="border-l border-line pl-6">
                 <dt className="text-[32px] font-medium leading-8 tracking-[-0.01em]">{f.big}</dt>
@@ -124,7 +125,7 @@ export function Scale() {
             ["Pinned and signed", "Every release ships with pinned dependencies, an SBOM and signed provenance, checked at install."],
             ["Sector-neutral core", "Banking, insurance and telecom rules live in configuration and content packs, never in forks."],
           ].map((f) => (
-            <div key={f[0]} className="rounded-2xl border border-line p-6">
+            <div key={f[0]} className="card rounded-2xl border border-line p-6">
               <h3 className="text-lead font-medium">{f[0]}</h3>
               <p className="mt-2 text-sm text-gray">{f[1]}</p>
             </div>
@@ -159,7 +160,7 @@ export function Modules() {
         </Reveal>
         <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {MODULES.map((m, i) => (
-            <Reveal as="li" key={m.name} delay={(i % 3) as 0 | 1 | 2} className="rounded-2xl border border-line p-6 transition-colors duration-300 hover:bg-band">
+            <Reveal as="li" key={m.name} delay={(i % 3) as 0 | 1 | 2} className="card rounded-2xl border border-line p-6">
               <div className="flex items-center justify-between">
                 <h3 className="text-lead font-medium">{m.name}</h3>
                 <span className={`text-xs font-medium ${m.status === "Available" ? "text-ok" : "text-[#3b5bdb]"}`}>{m.status}</span>
@@ -168,40 +169,6 @@ export function Modules() {
             </Reveal>
           ))}
         </ul>
-      </Container>
-    </section>
-  );
-}
-
-/* ---------- Sectors (the reference's customer stories) ---------- */
-
-const SECTORS = [
-  { name: "Banking", big: "Core replacement, factoring, limits and collateral.", text: "The places where a wrong rule is a finding, not a bug. Discovery that ends in a written plan; a pilot that ends in a running system and a record." },
-  { name: "Insurance", big: "Policy, claims and the audit trail behind both.", text: "Products that change every quarter on a core that cannot. Rules live in specifications, so the quarterly change is a revision, not a rewrite." },
-  { name: "Telecom", big: "Order management, catalogues and partner APIs.", text: "At a scale where every exception becomes a process. Partner onboarding through a governed portal with an instant sandbox." },
-];
-
-export function Sectors() {
-  return (
-    <section id="sectors" className="border-t border-line py-28">
-      <Container>
-        <Reveal className="max-w-[56rem]">
-          <Tag>Sectors</Tag>
-          <h2 className="mt-5 text-h2 font-medium">
-            Built for the rooms we have worked in. <span className="text-gray">The core is sector-neutral; the judgement about what a gate must check comes from these three.</span>
-          </h2>
-        </Reveal>
-        <div className="mt-14 grid gap-4 lg:grid-cols-3">
-          {SECTORS.map((s, i) => (
-            <Reveal key={s.name} delay={i as 0 | 1 | 2} className="overflow-hidden rounded-2xl border border-line">
-              <div className="dark-zone bg-dark px-6 py-10 text-dark-ink">
-                <div className="text-xs font-medium text-dark-gray">{s.name}</div>
-                <p className="mt-4 text-h3 font-medium">{s.big}</p>
-              </div>
-              <p className="p-6 text-sm text-gray">{s.text}</p>
-            </Reveal>
-          ))}
-        </div>
       </Container>
     </section>
   );
@@ -227,7 +194,7 @@ export function Services() {
         </Reveal>
         <ol className="mt-14 grid gap-4 lg:grid-cols-3">
           {SERVICES.map((s, i) => (
-            <Reveal as="li" key={s.name} delay={i as 0 | 1 | 2} className="rounded-2xl border border-line bg-white p-6">
+            <Reveal as="li" key={s.name} delay={i as 0 | 1 | 2} className="card rounded-2xl border border-line bg-white p-6">
               <div className="font-mono text-xs text-gray-2">0{i + 1}</div>
               <h3 className="mt-6 text-lead font-medium">{s.name}</h3>
               <p className="mt-2 text-sm text-gray">{s.text}</p>

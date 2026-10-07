@@ -36,7 +36,19 @@ export function TrailIsland() {
     if (!el) return;
     const io = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) { el.classList.add("is-in"); io.disconnect(); } }), { threshold: 0.2 });
     io.observe(el);
-    return () => io.disconnect();
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return () => io.disconnect();
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const r = el.getBoundingClientRect();
+        const p = (r.top - window.innerHeight / 2) / window.innerHeight;
+        el.style.setProperty("--hy", `${(p * 60).toFixed(1)}px`);
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { io.disconnect(); window.removeEventListener("scroll", onScroll); cancelAnimationFrame(raf); };
   }, []);
   return (
     <section id="trail" className="dark-zone bg-dark text-dark-ink">
@@ -112,9 +124,9 @@ export function AiIsland() {
             ))}
           </div>
         </div>
-        <div className="flex items-center justify-center px-0 py-8 sm:px-8 lg:py-24">
+        <Reveal className="flex items-center justify-center px-0 py-8 sm:px-8 lg:py-24">
           <Rings className="max-w-[560px]" />
-        </div>
+        </Reveal>
       </Container>
     </section>
   );
@@ -136,9 +148,9 @@ export function BuildIsland() {
             <a href="https://github.com/qorpe" className="btn btn-primary btn-sm mt-6">View the source <Arrow /></a>
           </Reveal>
         </div>
-        <div className="flex items-center justify-center px-0 py-8 sm:px-8 lg:py-16">
+        <Reveal className="flex items-center justify-center px-0 py-8 sm:px-8 lg:py-16">
           <div className="w-full max-w-[460px]"><Hex /></div>
-        </div>
+        </Reveal>
       </Container>
     </section>
   );

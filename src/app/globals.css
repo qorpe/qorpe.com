@@ -406,3 +406,89 @@
   .progress > span { transform: none; }
   .menu-panel { transition: none; }
 }
+
+/* ============================================================================
+   Fidelity pass: motion measured from the reference.
+   ========================================================================== */
+
+/* Horizon: the edge is "defined" from the centre outward, then the glow reveals. */
+.horizon-wrap.is-in .horizon {
+  animation:
+    horizon-define 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) both,
+    horizon-reveal 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes horizon-define {
+  from { clip-path: inset(0 50% 0 50%); }
+  to { clip-path: inset(0 0 0 0); }
+}
+.horizon-wrap .horizon {
+  transform: translateY(var(--hy, 0px));
+  will-change: transform;
+}
+
+/* Wireframes draw themselves in when they enter. */
+.draw * {
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+}
+.is-in .draw * {
+  animation: draw 1.8s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Caret in the ask bar. */
+.caret {
+  display: inline-block;
+  width: 1px;
+  height: 14px;
+  margin-left: 1px;
+  background: var(--ink);
+  vertical-align: -2px;
+  animation: caret-blink 1.1s steps(2, start) infinite;
+}
+@keyframes caret-blink {
+  to { visibility: hidden; }
+}
+
+/* Cards: the edge darkens on hover, nothing lifts. */
+.card {
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+.card:hover {
+  border-color: var(--line-2);
+}
+
+/* Line chart draw. */
+.chart-line {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+}
+.is-in .chart-line {
+  animation: draw 2s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s forwards;
+}
+
+/* Sector tabs. */
+.sector-tab {
+  flex: 1;
+  padding: 18px 16px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray);
+  background: var(--band);
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+.sector-tab[data-active="true"] {
+  color: var(--ink);
+  background: #fff;
+}
+.sector-tab:hover {
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .horizon-wrap.is-in .horizon, .is-in .draw *, .caret, .is-in .chart-line { animation: none; }
+  .draw *, .chart-line { stroke-dasharray: none; stroke-dashoffset: 0; }
+}

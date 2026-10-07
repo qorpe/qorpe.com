@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Container, Reveal, Tag, TwoTone } from "./ui";
-import { ApproveVisual, GenerateVisual, ReleaseVisual, SpecifyVisual, TrailVisual, VerifyVisual } from "./visuals";
+import { AnalyzerVisual, ApproveVisual, DriftVisual, GenerateVisual, PolicyVisual, ReleaseVisual, SpecifyVisual, TestsVisual, TrailVisual, VerifyVisual } from "./visuals";
 
 const TABS = [
   {
@@ -10,24 +10,28 @@ const TABS = [
     lead: ["Every change starts from a specification.", "Rules, contracts and requirements are versioned records. A change is opened from a revision and stays linked to it."],
     second: ["Nothing is implied, nothing drifts in silence.", "The manifest is the single source of truth; a module that is disabled does not exist in the build at all."],
     Visual: SpecifyVisual,
+    Second: DriftVisual,
   },
   {
     id: "generate", rail: "Generate",
     lead: ["The engine is deterministic.", "Code, migrations and tests are produced from the spec by an engine that never calls a model."],
     second: ["Same input, same output.", "That is what a reviewer needs in order to trust it, and what an auditor needs in order to reproduce it."],
     Visual: GenerateVisual,
+    Second: TestsVisual,
   },
   {
     id: "verify", rail: "Verify",
     lead: ["Gates block, they do not warn.", "Drift against the spec, analyzers, contract tests, security review. A failing gate stops the merge."],
     second: ["Every standard ships with its verifier.", "A suppression without a written reason is itself a failure, not a shortcut."],
     Visual: VerifyVisual,
+    Second: AnalyzerVisual,
   },
   {
     id: "approve", rail: "Approve",
     lead: ["Maker-checker, the way your policy says.", "Chains per change type: stages, quorums, distinct eyes. Configured once, enforced every time."],
     second: ["Each decision records who, what and which revision.", "The record is the one your auditor reads, not a screenshot someone made later."],
     Visual: ApproveVisual,
+    Second: PolicyVisual,
   },
   {
     id: "release", rail: "Release",
@@ -79,7 +83,7 @@ export function Platform() {
 
           <div className="space-y-6">
             {TABS.map((t) => {
-              const Second = "Second" in t ? t.Second : null;
+              const Second = t.Second;
               return (
                 <article
                   key={t.id}
@@ -97,7 +101,7 @@ export function Platform() {
                   </div>
                   <div className="grid min-w-0 gap-8 border-t border-line-3 p-5 sm:p-9 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
                     <TwoTone as="p" className="max-w-[28rem] text-lead font-medium" strong={t.second[0]} rest={t.second[1]} />
-                    {Second ? <Reveal className="min-w-0"><Second /></Reveal> : <div className="hidden lg:block" />}
+                    <Reveal className="min-w-0"><Second /></Reveal>
                   </div>
                 </article>
               );

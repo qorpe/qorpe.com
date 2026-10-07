@@ -52,19 +52,35 @@ export function Reveal({ children, className = "", delay = 0, as: As = "div" }: 
       el.classList.add("is-in");
       return;
     }
+    let done = false;
+    const show = () => {
+      if (done) return;
+      done = true;
+      el.classList.add("is-in");
+      io.disconnect();
+      window.removeEventListener("scroll", onScroll);
+    };
     const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            el.classList.add("is-in");
-            io.disconnect();
-          }
-        });
-      },
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) show(); }),
       { rootMargin: "0px 0px -5% 0px", threshold: 0 },
     );
+    // Belt and braces: a jump (anchor, programmatic scroll) can land before the
+    // observer reports, so a cheap scroll check shows the block the same frame.
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const b = el.getBoundingClientRect();
+        if (b.top < window.innerHeight * 0.95 && b.bottom > 0) show();
+      });
+    };
     io.observe(el);
-    return () => io.disconnect();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      io.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
   }, []);
   const Comp = As as unknown as "div";
   return (

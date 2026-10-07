@@ -1,7 +1,8 @@
 import { Announcement, Header } from "@/components/header";
 import { Platform } from "@/components/platform";
 import { AiIsland, BuildIsland, TrailIsland } from "@/components/dark";
-import { Changelog, CtaBand, Footer, Hero, Modules, Quote, Ready, Scale, Sectors, Services, Strip } from "@/components/sections";
+import { Changelog, CtaBand, Footer, Hero, Modules, Quote, Ready, Scale, Services, Strip } from "@/components/sections";
+import { Sectors } from "@/components/sectors";
 
 export default function Home() {
   return (

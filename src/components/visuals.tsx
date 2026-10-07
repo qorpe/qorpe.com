@@ -63,6 +63,14 @@ export function ProductWindow() {
             <span>Changes / <span className="font-mono text-ink-2">CR-2318</span></span>
             <span className="hidden sm:inline">Production · eu-central · on-premises</span>
           </div>
+          <div className="mt-4 rounded-xl border border-line p-3">
+            <div className="text-sm text-gray-2">Ask the record<span className="caret" aria-hidden="true" /></div>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {["Prepare the 11:00 Checker review", "What changed in LIM-07 since rev 12?", "Which gates block CR-2318?"].map((c) => (
+                <span key={c} className="rounded-full border border-line px-2.5 py-1 text-xs text-ink-2">{c}</span>
+              ))}
+            </div>
+          </div>
           <div className="mt-4 flex flex-wrap items-start justify-between gap-3">
             <div>
               <h3 className="text-lead font-medium">Limit allocation: add collateral type “receivable pool”</h3>
@@ -244,6 +252,106 @@ export function TrailVisual() {
   );
 }
 
+export function DriftVisual() {
+  const rows = [
+    ["LIM-07 §3.2", "haircut for receivable pools", "spec rev 14", "code 0042", "in sync"],
+    ["LIM-07 §4.1", "limit ceiling per obligor", "spec rev 14", "code 0039", "in sync"],
+    ["LIM-06 §2.4", "collateral revaluation window", "spec rev 9", "code 0031", "in sync"],
+    ["LIM-08 §1.0", "pool eligibility", "spec rev 2", "none", "draft"],
+  ];
+  return (
+    <Frame title="Drift check" right="spec ↔ code">
+      <ul className="divide-y divide-line-3 text-sm">
+        {rows.map((r) => (
+          <li key={r[0]} className="grid grid-cols-[84px_1fr_auto] items-center gap-3 px-4 py-3">
+            <span className="font-mono text-xs text-gray">{r[0]}</span>
+            <span className="truncate">{r[1]} <span className="text-xs text-gray-2">· {r[2]} · {r[3]}</span></span>
+            <span className={`text-xs ${r[4] === "in sync" ? "text-ok" : "text-gray"}`}>{r[4]}</span>
+          </li>
+        ))}
+      </ul>
+    </Frame>
+  );
+}
+
+export function TestsVisual() {
+  const rows = [
+    ["ReceivablePool_Haircut_Applies", "generated from LIM-07 §3.2", "passed"],
+    ["ReceivablePool_Ceiling_Holds", "generated from LIM-07 §4.1", "passed"],
+    ["ReceivablePool_Rejects_Ineligible", "generated from LIM-08 §1.0", "passed"],
+  ];
+  return (
+    <Frame title="Generated tests" right="3 of 3">
+      <ul className="divide-y divide-line-3 text-sm">
+        {rows.map((r) => (
+          <li key={r[0]} className="grid grid-cols-[1fr_auto] items-center gap-3 px-4 py-3">
+            <span><span className="font-mono text-xs">{r[0]}</span> <span className="text-xs text-gray-2">· {r[1]}</span></span>
+            <span className="text-xs text-ok">{r[2]}</span>
+          </li>
+        ))}
+      </ul>
+    </Frame>
+  );
+}
+
+export function AnalyzerVisual() {
+  const rows = [
+    ["GP0412", "Idempotency key required on payment operation", "src/Limits/Allocate.cs:41", "fixed"],
+    ["GP0207", "Public API needs an XML summary", "src/Limits/ReceivablePool.cs:12", "fixed"],
+    ["GP0901", "Suppression without justification", "—", "0"],
+  ];
+  return (
+    <Frame title="Analyzers" right="0 open">
+      <ul className="divide-y divide-line-3 text-sm">
+        {rows.map((r) => (
+          <li key={r[0]} className="grid grid-cols-[64px_1fr_auto] items-center gap-3 px-4 py-3">
+            <span className="font-mono text-xs text-gray">{r[0]}</span>
+            <span className="truncate">{r[1]} <span className="text-xs text-gray-2">· {r[2]}</span></span>
+            <span className="text-xs text-ok">{r[3]}</span>
+          </li>
+        ))}
+      </ul>
+    </Frame>
+  );
+}
+
+export function PolicyVisual() {
+  const stages = [
+    ["1", "Maker", "any engineer on the module", "1 of 1"],
+    ["2", "Checker", "Credit risk, distinct from Maker", "1 of 2"],
+    ["3", "Release", "Change advisory, business hours", "2 of 3"],
+  ];
+  return (
+    <Frame title="Chain: limits-change" right="policy v7">
+      <ul className="divide-y divide-line-3 text-sm">
+        {stages.map((r) => (
+          <li key={r[0]} className="grid grid-cols-[20px_76px_1fr_auto] items-center gap-3 px-4 py-3">
+            <span className="font-mono text-xs text-gray-2">{r[0]}</span>
+            <span className="font-medium">{r[1]}</span>
+            <span className="truncate text-gray">{r[2]}</span>
+            <span className="text-xs text-gray-2">quorum {r[3]}</span>
+          </li>
+        ))}
+      </ul>
+    </Frame>
+  );
+}
+
+/* ---------- Line chart for the scale section ---------- */
+
+export function LineChart() {
+  const pts = [[0, 150], [60, 146], [120, 140], [180, 128], [240, 118], [300, 104], [360, 92], [420, 72], [480, 56], [540, 34], [600, 18]];
+  const d = pts.map((p, i) => `${i === 0 ? "M" : "L"}${p[0]} ${p[1]}`).join(" ");
+  return (
+    <svg viewBox="0 0 600 180" className="h-auto w-full" aria-hidden="true">
+      {[0, 1, 2, 3].map((i) => <line key={i} x1="0" x2="600" y1={30 + i * 40} y2={30 + i * 40} stroke="var(--line)" />)}
+      {[0, 1, 2, 3, 4, 5].map((i) => <line key={i} y1="0" y2="180" x1={i * 120} x2={i * 120} stroke="var(--line-3)" />)}
+      <path d={d} fill="none" stroke="var(--ink)" strokeWidth="1.5" className="chart-line" />
+      <circle cx="600" cy="18" r="3.5" fill="var(--ink)" />
+    </svg>
+  );
+}
+
 /* ---------- Wide visual for the "ready" section: the modules view ---------- */
 
 export function ModulesVisual() {
@@ -295,7 +403,7 @@ export function Rings({ className = "" }: { className?: string }) {
   const f = (n: number) => n.toFixed(2);
   return (
     <svg viewBox="0 0 720 620" className={`h-auto w-full ${className}`} aria-hidden="true">
-      <g transform="translate(360 330)">
+      <g transform="translate(360 330)" className="draw">
         <g className="rings-spin" transform="scale(1 0.42)" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="1">
           {rings.map((r) => <circle key={r} r={r} />)}
           {Array.from({ length: 16 }).map((_, i) => {
@@ -311,6 +419,11 @@ export function Rings({ className = "" }: { className?: string }) {
         ))}
         <circle r="4" cy="-150" fill="#fff" />
         <circle r="11" cy="-150" fill="none" stroke="rgba(255,255,255,0.3)" />
+        {[0, 1, 2].map((i) => (
+          <circle key={i} r="2.5" fill="#fff">
+            <animateMotion dur={`${9 + i * 3}s`} begin={`${i * 2}s`} repeatCount="indefinite" path={`M ${-210 + i * 50} 0 a ${210 - i * 50} ${(210 - i * 50) * 0.42} 0 1 0 ${(210 - i * 50) * 2} 0 a ${210 - i * 50} ${(210 - i * 50) * 0.42} 0 1 0 ${-(210 - i * 50) * 2} 0`} />
+          </circle>
+        ))}
       </g>
     </svg>
   );
@@ -319,7 +432,7 @@ export function Rings({ className = "" }: { className?: string }) {
 export function Hex() {
   const pts = (r: number, cx: number, cy: number) => Array.from({ length: 6 }).map((_, i) => { const a = (Math.PI / 3) * i + Math.PI / 6; return `${(cx + r * Math.cos(a)).toFixed(2)},${(cy + r * Math.sin(a)).toFixed(2)}`; }).join(" ");
   return (
-    <svg viewBox="0 0 520 360" className="h-auto w-full" aria-hidden="true">
+    <svg viewBox="0 0 520 360" className="draw h-auto w-full" aria-hidden="true">
       {[40, 80, 120, 160].map((r) => <polygon key={r} points={pts(r, 260, 180)} fill="none" stroke="rgba(255,255,255,0.2)" />)}
       {[0, 1, 2, 3, 4, 5].map((i) => { const a = (Math.PI / 3) * i + Math.PI / 6; return <line key={i} x1={(260 + 40 * Math.cos(a)).toFixed(2)} y1={(180 + 40 * Math.sin(a)).toFixed(2)} x2={(260 + 160 * Math.cos(a)).toFixed(2)} y2={(180 + 160 * Math.sin(a)).toFixed(2)} stroke="rgba(255,255,255,0.12)" />; })}
       <circle cx="260" cy="180" r="4" fill="#fff" />
