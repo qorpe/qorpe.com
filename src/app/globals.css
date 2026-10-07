@@ -1,92 +1,95 @@
 @import "tailwindcss";
 
 /* ============================================================================
-   Tokens. Dark by design: a navy-black ground, two lifted surfaces, soft
-   borders at low alpha, one blue accent used for state and nothing else.
+   Tokens — one dark ground, two lifted surfaces, half-pixel edges.
+   Measured from the reference: ground #08090a, ink #f7f8f8, gray #8a8f98,
+   frames #0f1011 with a 0.5px white/12 edge and a long soft shadow.
    ========================================================================== */
 :root {
-  --app: #0b0d13;
-  --surface: #11141c;
-  --raised: #171b25;
-  --line: rgb(255 255 255 / 0.08);
-  --line-strong: rgb(255 255 255 / 0.14);
-  --foreground: #f3f4f8;
-  --muted-foreground: #a4a9b8;
-  --faint: #6f7586;
-  --primary: #f3f4f8;
-  --primary-foreground: #0b0d13;
-  --accent: #3b82f6;
-  --accent-soft: rgb(59 130 246 / 0.16);
-  --ok: #34d399;
-  --warn: #fbbf24;
+  --ground: #08090a;
+  --frame: #0f1011;
+  --frame-2: #141516;
+  --edge: rgb(255 255 255 / 0.08);
+  --edge-2: rgb(255 255 255 / 0.12);
+  --ink: #f7f8f8;
+  --ink-2: #d0d6e0;
+  --gray: #8a8f98;
+  --gray-2: #62666d;
+  --ok: #4cc38a;
+  --warn: #f0b442;
+  --accent: #5e6ad2;
 
   --font-sans:
-    var(--font-geist), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    var(--font-geist), "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono:
     var(--font-geist-mono), ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
   color-scheme: dark;
 }
 
 @theme inline {
-  --color-app: var(--app);
-  --color-surface: var(--surface);
-  --color-raised: var(--raised);
-  --color-line: var(--line);
-  --color-line-strong: var(--line-strong);
-  --color-foreground: var(--foreground);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-faint: var(--faint);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-accent: var(--accent);
-  --color-accent-soft: var(--accent-soft);
+  --color-ground: var(--ground);
+  --color-frame: var(--frame);
+  --color-frame-2: var(--frame-2);
+  --color-edge: var(--edge);
+  --color-edge-2: var(--edge-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-gray: var(--gray);
+  --color-gray-2: var(--gray-2);
   --color-ok: var(--ok);
   --color-warn: var(--warn);
+  --color-accent: var(--accent);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
 }
 
 @theme {
-  --text-ui: 13px;
-  --text-ui--line-height: 1.5;
-  --text-body: 15px;
-  --text-body--line-height: 1.65;
-  --text-lead: 18px;
-  --text-lead--line-height: 1.55;
-  --text-h3: 1.125rem;
-  --text-h3--line-height: 1.35;
-  --text-h2: clamp(1.75rem, 3vw, 2.5rem);
-  --text-h2--line-height: 1.12;
-  --text-h2--letter-spacing: -0.025em;
-  --text-display: clamp(2.6rem, 6vw, 4.6rem);
-  --text-display--line-height: 1.0;
-  --text-display--letter-spacing: -0.04em;
+  --text-xs: 12px;
+  --text-xs--line-height: 1.5;
+  --text-sm: 13px;
+  --text-sm--line-height: 1.5;
+  --text-base: 15px;
+  --text-base--line-height: 1.6;
+  --text-md: 17px;
+  --text-md--line-height: 1.55;
+  --text-lg: 20px;
+  --text-lg--line-height: 1.4;
+  --text-lg--letter-spacing: -0.012em;
+  --text-h2: clamp(2rem, 3.4vw, 3rem);
+  --text-h2--line-height: 1.08;
+  --text-h2--letter-spacing: -0.022em;
+  --text-h1: clamp(2.6rem, 4.6vw, 4rem);
+  --text-h1--line-height: 1.0;
+  --text-h1--letter-spacing: -0.022em;
+  --text-closing: clamp(2.6rem, 5.2vw, 4.5rem);
+  --text-closing--line-height: 1.02;
+  --text-closing--letter-spacing: -0.022em;
 }
 
 @layer base {
   * {
-    border-color: var(--line);
+    border-color: var(--edge);
   }
   html {
     scroll-behavior: smooth;
     scrollbar-gutter: stable;
   }
   body {
-    background: var(--app);
-    color: var(--foreground);
+    background: var(--ground);
+    color: var(--ink);
     font-family: var(--font-sans);
-    font-size: var(--text-body);
-    line-height: var(--text-body--line-height);
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    background: var(--accent-soft);
+    background: rgb(94 106 210 / 0.35);
   }
   :focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--ink);
     outline-offset: 3px;
-    border-radius: 6px;
+    border-radius: 8px;
   }
   @media (prefers-reduced-motion: reduce) {
     html {
@@ -95,7 +98,6 @@
   }
 }
 
-/* The mark, recolored through a mask. */
 .mark {
   display: inline-block;
   background-color: currentColor;
@@ -103,39 +105,124 @@
   mask: url("/brand/qorpe-mark-black.svg") center / contain no-repeat;
 }
 
-/* The product window: the one lifted, lit object on the page. It leans back a
-   few degrees and fades into the ground, so it reads as a screen in a room,
-   not a screenshot pasted on a page. */
-.window-stage {
-  perspective: 2200px;
-  perspective-origin: 50% 0%;
+/* Buttons. The primary is a white pill, the way the reference signs people up. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease,
+    border-color 120ms ease;
 }
-.window {
-  transform-origin: 50% 0%;
+.btn-primary {
+  background: var(--ink);
+  color: #08090a;
 }
-@media (min-width: 1024px) {
-  .window {
-    transform: rotateX(7deg);
-    -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
-  }
+.btn-primary:hover {
+  background: #ffffff;
 }
-.window-glow {
-  background: radial-gradient(
-    60% 50% at 50% 0%,
-    rgb(59 130 246 / 0.22),
-    transparent 70%
-  );
+.btn-secondary {
+  background: rgb(255 255 255 / 0.06);
+  color: var(--ink);
+  border: 0.5px solid var(--edge-2);
 }
-@media (prefers-reduced-motion: reduce) {
-  .window {
-    transform: none;
-  }
+.btn-secondary:hover {
+  background: rgb(255 255 255 / 0.1);
+}
+.btn-ghost {
+  color: var(--gray);
+}
+.btn-ghost:hover {
+  color: var(--ink);
+}
+.btn-lg {
+  height: 40px;
+  padding: 0 18px;
+  font-size: 14px;
 }
 
-/* Soft panels: a lifted surface and a low-alpha edge. No shadows. */
-.panel {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 20px;
+/* Frames: the dark panel every visual sits in. */
+.frame {
+  background: var(--frame);
+  border: 0.5px solid var(--edge-2);
+  border-radius: 12px;
+  box-shadow: 0 2px 32px rgb(0 0 0 / 0.25);
+}
+.frame-soft {
+  background: rgb(255 255 255 / 0.02);
+  border: 0.5px solid rgb(255 255 255 / 0.06);
+  border-radius: 8px;
+}
+
+/* Header menu panel: lifted frame, three columns, a "new" strip at the bottom. */
+.menu-panel {
+  background: var(--frame-2);
+  border: 0.5px solid var(--edge-2);
+  border-radius: 12px;
+  box-shadow: 0 8px 40px rgb(0 0 0 / 0.5);
+  opacity: 0;
+  translate: 0 6px;
+  pointer-events: none;
+  transition:
+    opacity 140ms ease,
+    translate 140ms ease;
+}
+.menu-open .menu-panel {
+  opacity: 1;
+  translate: 0 0;
+  pointer-events: auto;
+}
+.menu-item {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: background-color 100ms ease;
+}
+.menu-item:hover {
+  background: rgb(255 255 255 / 0.05);
+}
+.menu-chevron {
+  transition: rotate 140ms ease;
+}
+.menu-open .menu-chevron {
+  rotate: 180deg;
+}
+
+/* The light under the hero frame. One glow, not a wash. */
+.hero-glow {
+  background: radial-gradient(50% 60% at 50% 0%, rgb(255 255 255 / 0.07), transparent 70%);
+}
+
+/* The closing rings drift; a quiet motion the eye reads as depth, not decoration. */
+@keyframes drift-a {
+  from { transform: translate3d(-3%, 4%, 0) rotate(0deg); }
+  to { transform: translate3d(3%, -4%, 0) rotate(14deg); }
+}
+@keyframes drift-b {
+  from { transform: translate3d(4%, -3%, 0) rotate(0deg); }
+  to { transform: translate3d(-4%, 3%, 0) rotate(-10deg); }
+}
+.ring-a { animation: drift-a 30s ease-in-out infinite alternate; }
+.ring-b { animation: drift-b 36s ease-in-out infinite alternate; }
+@media (prefers-reduced-motion: reduce) {
+  .ring-a, .ring-b { animation: none; }
+  .menu-panel { transition: none; }
+}
+
+/* Mono caps label (the reference's "powering the companies…"). Used once. */
+.caps {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray-2);
 }
