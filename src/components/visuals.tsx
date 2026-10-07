@@ -114,16 +114,16 @@ export function Screen({ children, active, title }: { children: React.ReactNode;
   const items = ["Home", "Changes", "Specifications", "Gates", "Approvals", "Audit trail", "Releases"];
   return (
     <div className="window overflow-hidden" aria-hidden="true">
-      <div className="grid min-h-[420px] sm:grid-cols-[150px_1fr]">
+      <div className="grid min-h-[380px] sm:grid-cols-[180px_1fr]">
         <nav className="hidden border-r border-line bg-band p-2.5 text-xs sm:block">
           <div className="mb-3 flex items-center gap-1.5 px-2 py-1"><span className="mark h-3.5 w-3.5 text-ink" /><span className="font-medium">Control Room</span></div>
           {items.map((it) => (
             <div key={it} className={`rounded-md px-2 py-1.5 ${it === active ? "bg-white font-medium text-ink shadow-[0_0_0_1px_rgb(20_20_22/0.06)]" : "text-ink-2"}`}>{it}</div>
           ))}
         </nav>
-        <div className="p-4 sm:p-6">
+        <div className="p-4 sm:p-7">
           <div className="mb-4 text-xs text-gray">{title}</div>
-          {children}
+          <div className="max-w-[720px]">{children}</div>
         </div>
       </div>
     </div>

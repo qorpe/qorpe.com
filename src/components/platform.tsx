@@ -92,16 +92,14 @@ export function Platform() {
                   ref={(el) => { refs.current[t.id] = el; }}
                   className="min-w-0 scroll-mt-28 overflow-hidden rounded-2xl border border-line bg-white"
                 >
-                  <div className="grid min-w-0 gap-8 p-5 sm:px-8 sm:pt-11 sm:pb-10 lg:grid-cols-[460px_1fr] lg:gap-10">
-                    <div>
-                      <div className="mb-4 text-xs text-gray-2 lg:hidden">{t.rail}</div>
-                      <TwoTone as="h3" className="max-w-[26rem] text-lead font-medium" strong={t.lead[0]} rest={t.lead[1]} />
-                    </div>
-                    <Reveal className="min-w-0"><Screen active={t.screen[0]} title={t.screen[1]}><t.Visual /></Screen></Reveal>
+                  <div className="min-w-0 p-5 sm:px-8 sm:pt-11 sm:pb-10">
+                    <div className="mb-4 text-xs text-gray-2 lg:hidden">{t.rail}</div>
+                    <TwoTone as="h3" className="max-w-[520px] text-lead font-medium" strong={t.lead[0]} rest={t.lead[1]} />
+                    <Reveal className="mt-8 min-w-0"><Screen active={t.screen[0]} title={t.screen[1]}><t.Visual /></Screen></Reveal>
                   </div>
-                  <div className="grid min-w-0 gap-8 border-t border-line-3 p-5 sm:px-8 sm:pt-11 sm:pb-10 lg:grid-cols-[460px_1fr] lg:gap-10">
-                    <TwoTone as="p" className="max-w-[26rem] text-lead font-medium" strong={t.second[0]} rest={t.second[1]} />
-                    <Reveal className="min-w-0"><Screen active={t.screen[2]} title={t.screen[3]}><Second /></Screen></Reveal>
+                  <div className="min-w-0 border-t border-line-3 p-5 sm:px-8 sm:pt-11 sm:pb-10">
+                    <TwoTone as="p" className="max-w-[520px] text-lead font-medium" strong={t.second[0]} rest={t.second[1]} />
+                    <Reveal className="mt-8 min-w-0"><Screen active={t.screen[2]} title={t.screen[3]}><Second /></Screen></Reveal>
                   </div>
                 </article>
               );
