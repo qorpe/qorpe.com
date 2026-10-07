@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 const SITE = "https://qorpe.com";
-const TITLE = "Qorpe — a delivery platform for regulated industries";
+const TITLE = "Qorpe — Control Room for regulated software delivery";
 const DESCRIPTION =
-  "Qorpe builds the governed, AI-native delivery platform for banks, insurers and telecoms: specifications as the source of truth, deterministic gates, and a decision trail an auditor can read.";
+  "Qorpe Control Room is an on-premises platform that governs how software changes move through banks, insurers and telecoms: specifications, gates, approvals and AI, with a trail your auditor can read.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
@@ -42,10 +42,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f1117" },
-  ],
+  themeColor: "#0b0d13",
   width: "device-width",
   initialScale: 1,
 };

@@ -6,9 +6,9 @@ import { Container } from "./container";
 
 const NAV = [
   { href: "#platform", label: "Platform" },
-  { href: "#products", label: "Products" },
-  { href: "#sectors", label: "Sectors" },
-  { href: "#advisory", label: "Advisory" },
+  { href: "#modules", label: "Modules" },
+  { href: "#deploy", label: "Deployment" },
+  { href: "#services", label: "Services" },
 ] as const;
 
 export function Header() {
@@ -24,8 +24,8 @@ export function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-40 bg-app/85 backdrop-blur-md transition-[border-color] ${
-        scrolled ? "border-b border-border" : "border-b border-transparent"
+      className={`sticky top-0 z-40 bg-app/80 backdrop-blur-md transition-[border-color] ${
+        scrolled ? "border-b border-line" : "border-b border-transparent"
       }`}
     >
       <Container className="flex h-16 items-center justify-between">
@@ -39,22 +39,22 @@ export function Header() {
             <a
               key={item.href}
               href={item.href}
-              className="rounded-md px-3 py-1.5 text-ui text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              className="rounded-md px-3 py-1.5 text-ui text-muted-foreground transition-colors hover:bg-raised hover:text-foreground"
             >
               {item.label}
             </a>
           ))}
           <a
-            href="mailto:hello@qorpe.com"
+            href="mailto:hello@qorpe.com?subject=Demo%20request"
             className="ml-3 rounded-md bg-primary px-3.5 py-1.5 text-ui font-medium text-primary-foreground transition-opacity hover:opacity-90"
           >
-            Talk to us
+            Request a demo
           </a>
         </nav>
 
         <button
           type="button"
-          className="rounded-md p-2 text-muted-foreground hover:bg-muted hover:text-foreground md:hidden"
+          className="rounded-md p-2 text-muted-foreground hover:bg-raised hover:text-foreground md:hidden"
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -71,23 +71,23 @@ export function Header() {
       </Container>
 
       {open ? (
-        <nav id="mobile-nav" className="border-t border-border md:hidden" aria-label="Primary">
+        <nav id="mobile-nav" className="border-t border-line md:hidden" aria-label="Primary">
           <Container className="flex flex-col py-2">
             {NAV.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="rounded-md px-2 py-2.5 text-body text-foreground hover:bg-muted"
+                className="rounded-md px-2 py-2.5 text-body text-foreground hover:bg-raised"
               >
                 {item.label}
               </a>
             ))}
             <a
-              href="mailto:hello@qorpe.com"
+              href="mailto:hello@qorpe.com?subject=Demo%20request"
               className="mt-2 mb-2 rounded-md bg-primary px-3.5 py-2.5 text-center text-body font-medium text-primary-foreground"
             >
-              Talk to us
+              Request a demo
             </a>
           </Container>
         </nav>

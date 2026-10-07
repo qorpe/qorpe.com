@@ -1,86 +1,51 @@
 @import "tailwindcss";
 
 /* ============================================================================
-   Design tokens — one neutral ramp, one accent.
-   Light: paper white and ink. Dark: navy-black. Hairline borders carry the
-   structure; nothing floats on a shadow. The accent is the single blue the
-   family already uses (omercelik.dev): the recorded decision, the live dot.
+   Tokens. Dark by design: a navy-black ground, two lifted surfaces, soft
+   borders at low alpha, one blue accent used for state and nothing else.
    ========================================================================== */
 :root {
-  --app: oklch(1 0 0);
-  --surface: oklch(0.985 0.002 286);
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.141 0.005 285.823);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.5 0.016 285.938);
-  --faint: oklch(0.6 0.014 286);
-  --border: oklch(0.92 0.004 286.32);
-  --border-strong: oklch(0.85 0.006 286.2);
-  --primary: oklch(0.21 0.006 285.885);
-  --primary-foreground: oklch(0.985 0 0);
-
-  --accent: oklch(0.546 0.215 262.9); /* #2563EB */
-  --accent-soft: oklch(0.546 0.215 262.9 / 0.12);
-  --ok: oklch(0.6 0.15 152);
-
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  --app: #0b0d13;
+  --surface: #11141c;
+  --raised: #171b25;
+  --line: rgb(255 255 255 / 0.08);
+  --line-strong: rgb(255 255 255 / 0.14);
+  --foreground: #f3f4f8;
+  --muted-foreground: #a4a9b8;
+  --faint: #6f7586;
+  --primary: #f3f4f8;
+  --primary-foreground: #0b0d13;
+  --accent: #3b82f6;
+  --accent-soft: rgb(59 130 246 / 0.16);
+  --ok: #34d399;
+  --warn: #fbbf24;
 
   --font-sans:
-    var(--font-geist), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    sans-serif;
+    var(--font-geist), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono:
-    var(--font-geist-mono), ui-monospace, "SF Mono", "JetBrains Mono", Menlo,
-    monospace;
-
-  --mark: url("/brand/qorpe-mark-black.svg");
-  color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --app: oklch(0.15 0.012 265);
-    --surface: oklch(0.17 0.012 265);
-    --background: oklch(0.19 0.012 265);
-    --foreground: oklch(0.985 0 0);
-    --muted: oklch(0.26 0.008 270);
-    --muted-foreground: oklch(0.72 0.014 286);
-    --faint: oklch(0.62 0.014 286);
-    --border: oklch(0.29 0.01 270);
-    --border-strong: oklch(0.38 0.012 270);
-    --primary: oklch(0.985 0 0);
-    --primary-foreground: oklch(0.15 0.012 265);
-    --accent: oklch(0.68 0.17 262.9);
-    --accent-soft: oklch(0.68 0.17 262.9 / 0.16);
-    --ok: oklch(0.72 0.15 152);
-    color-scheme: dark;
-  }
+    var(--font-geist-mono), ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+  color-scheme: dark;
 }
 
 @theme inline {
   --color-app: var(--app);
   --color-surface: var(--surface);
-  --color-background: var(--background);
+  --color-raised: var(--raised);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
   --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-faint: var(--faint);
-  --color-border: var(--border);
-  --color-border-strong: var(--border-strong);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
   --color-ok: var(--ok);
-  --radius-sm: var(--radius-sm);
-  --radius-md: var(--radius-md);
-  --radius-lg: var(--radius-lg);
+  --color-warn: var(--warn);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
 }
 
-/* Type scale: four sizes do all the work. */
 @theme {
   --text-ui: 13px;
   --text-ui--line-height: 1.5;
@@ -88,17 +53,19 @@
   --text-body--line-height: 1.65;
   --text-lead: 18px;
   --text-lead--line-height: 1.55;
-  --text-h2: clamp(1.5rem, 2.4vw, 1.9rem);
-  --text-h2--line-height: 1.2;
-  --text-h2--letter-spacing: -0.02em;
-  --text-display: clamp(2.4rem, 5.2vw, 4rem);
-  --text-display--line-height: 1.02;
-  --text-display--letter-spacing: -0.035em;
+  --text-h3: 1.125rem;
+  --text-h3--line-height: 1.35;
+  --text-h2: clamp(1.75rem, 3vw, 2.5rem);
+  --text-h2--line-height: 1.12;
+  --text-h2--letter-spacing: -0.025em;
+  --text-display: clamp(2.6rem, 6vw, 4.6rem);
+  --text-display--line-height: 1.0;
+  --text-display--letter-spacing: -0.04em;
 }
 
 @layer base {
   * {
-    border-color: var(--border);
+    border-color: var(--line);
   }
   html {
     scroll-behavior: smooth;
@@ -119,7 +86,7 @@
   :focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
-    border-radius: var(--radius-sm);
+    border-radius: 6px;
   }
   @media (prefers-reduced-motion: reduce) {
     html {
@@ -128,164 +95,47 @@
   }
 }
 
-/* The mark, recolored through a mask so one SVG serves both themes. */
+/* The mark, recolored through a mask. */
 .mark {
   display: inline-block;
   background-color: currentColor;
-  -webkit-mask: var(--mark) center / contain no-repeat;
-  mask: var(--mark) center / contain no-repeat;
+  -webkit-mask: url("/brand/qorpe-mark-black.svg") center / contain no-repeat;
+  mask: url("/brand/qorpe-mark-black.svg") center / contain no-repeat;
 }
 
-/* ============================================================================
-   The gate stack — the one bold element on the page.
-   Five rings stacked along z, a change rising through them; each ring turns
-   to the accent as the change clears it, and the ledger beside it fills in.
-   Pure CSS transforms; pointer parallax sets --rx/--ry from a tiny script.
-   ========================================================================== */
-.stack-scene {
-  --rx: 0deg;
-  --ry: 0deg;
-  --plate: 270px;
-  --gap: 62px;
-  --cycle: 9s;
-  perspective: 1400px;
-  perspective-origin: 50% 40%;
+/* The product window: the one lifted, lit object on the page. It leans back a
+   few degrees and fades into the ground, so it reads as a screen in a room,
+   not a screenshot pasted on a page. */
+.window-stage {
+  perspective: 2200px;
+  perspective-origin: 50% 0%;
 }
-.stack-space {
-  position: relative;
-  width: var(--plate);
-  height: var(--plate);
-  transform-style: preserve-3d;
-  transform: rotateX(calc(62deg + var(--rx))) rotateZ(calc(-34deg + var(--ry)));
-  transition: transform 300ms ease-out;
+.window {
+  transform-origin: 50% 0%;
 }
-.plate {
-  position: absolute;
-  inset: 0;
-  border: 1px solid var(--border-strong);
-  border-radius: 22px;
-  background: color-mix(in oklch, var(--background) 86%, transparent);
-  transform: translateZ(calc(var(--i) * var(--gap)));
-  transform-style: preserve-3d;
-}
-.plate-ring {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 58%;
-  height: 58%;
-  translate: -50% -50%;
-  border-radius: 999px;
-  border: 2px solid var(--border-strong);
-  animation: ring-pass var(--cycle) linear infinite;
-  animation-delay: calc(var(--i) * (var(--cycle) / 7));
-}
-.plate-label {
-  position: absolute;
-  left: 18px;
-  bottom: 14px;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: var(--muted-foreground);
-}
-.axis {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 1px;
-  height: calc(var(--gap) * 4);
-  background: var(--border-strong);
-  transform-origin: top center;
-  transform: translate(-50%, 0) rotateX(-90deg);
-}
-.token {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 14px;
-  height: 14px;
-  margin: -7px 0 0 -7px;
-  border-radius: 999px;
-  background: var(--accent);
-  box-shadow: 0 0 0 6px var(--accent-soft);
-  animation: token-rise var(--cycle) linear infinite;
-}
-@keyframes token-rise {
-  0% {
-    transform: translateZ(0);
-    opacity: 0;
-  }
-  4% {
-    opacity: 1;
-  }
-  64% {
-    transform: translateZ(calc(var(--gap) * 4));
-    opacity: 1;
-  }
-  72% {
-    transform: translateZ(calc(var(--gap) * 4.6));
-    opacity: 0;
-  }
-  100% {
-    transform: translateZ(calc(var(--gap) * 4.6));
-    opacity: 0;
+@media (min-width: 1024px) {
+  .window {
+    transform: rotateX(7deg);
+    -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
   }
 }
-@keyframes ring-pass {
-  0%,
-  9% {
-    border-color: var(--border-strong);
-  }
-  12%,
-  70% {
-    border-color: var(--accent);
-  }
-  78%,
-  100% {
-    border-color: var(--border-strong);
-  }
-}
-.ledger-row {
-  animation: ledger-in var(--cycle) linear infinite;
-  animation-delay: calc(var(--i) * (var(--cycle) / 7));
-}
-@keyframes ledger-in {
-  0%,
-  10% {
-    opacity: 0.28;
-  }
-  13%,
-  70% {
-    opacity: 1;
-  }
-  78%,
-  100% {
-    opacity: 0.28;
-  }
+.window-glow {
+  background: radial-gradient(
+    60% 50% at 50% 0%,
+    rgb(59 130 246 / 0.22),
+    transparent 70%
+  );
 }
 @media (prefers-reduced-motion: reduce) {
-  .stack-space {
-    transition: none;
-  }
-  .plate-ring,
-  .token,
-  .ledger-row {
-    animation: none;
-  }
-  .plate-ring {
-    border-color: var(--accent);
-  }
-  .token {
-    transform: translateZ(calc(var(--gap) * 4));
-  }
-  .ledger-row {
-    opacity: 1;
+  .window {
+    transform: none;
   }
 }
-@media (max-width: 1023px) {
-  .stack-scene {
-    --plate: 210px;
-    --gap: 50px;
-  }
+
+/* Soft panels: a lifted surface and a low-alpha edge. No shadows. */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
 }

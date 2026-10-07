@@ -1,109 +1,49 @@
 import { Container } from "@/components/container";
 import { Header } from "@/components/header";
-import { GateStack } from "@/components/gate-stack";
+import { ProductWindow } from "@/components/product-window";
 
-const STEPS = [
+const PRODUCT = "Qorpe Control Room";
+
+const CAPABILITIES = [
   {
-    name: "Specify",
-    text: "Requirements, rules and contracts land in a manifest and in specs. Nothing stays implied, and a disabled module does not exist in the build.",
+    name: "Specifications",
+    text: "Requirements, rules and contracts are versioned records, not documents. A change starts from a specification revision and stays linked to it.",
   },
   {
-    name: "Generate",
-    text: "A deterministic engine turns the spec into code, migrations and tests. It never calls a model, so the same input gives the same output.",
+    name: "Gates",
+    text: "Deterministic checks run on every change: drift against the spec, analyzers, contract tests, security review. A failing gate blocks; a suppression needs a written reason.",
   },
   {
-    name: "Verify",
-    text: "Every standard ships with its verifier. A failing gate blocks the merge, and a suppression without a written reason is itself a failure.",
+    name: "Approvals",
+    text: "Maker-checker chains you configure per change type: stages, quorums, distinct eyes. Each decision records who, what and which revision.",
   },
   {
-    name: "Approve",
-    text: "Maker-checker chains with configurable stages, quorums and distinct eyes. Each decision leaves an entry with who, what and on which revision.",
-  },
-  {
-    name: "Release",
-    text: "Pinned dependencies, an SBOM and signed provenance on every train. Air-gapped networks are a first-class target, not an afterthought.",
+    name: "AI gateway",
+    text: "Assistants and coding agents work through the same gates. Model calls pass a policy point, and every proposal is reviewed and logged like a human contribution.",
   },
 ];
 
-const PRODUCTS = [
-  {
-    name: "Goldpath",
-    text: "The golden path itself: a manifest-driven .NET accelerator with compile-time module composition, AI skills and guardrails.",
-    status: "Open source",
-    href: "https://github.com/qorpe/goldpath",
-    link: "github.com/qorpe/goldpath",
-  },
-  {
-    name: "specdrift",
-    text: "Deterministic spec lint for manifest-driven golden paths. Validates invariants, detects drift between artifacts, speaks MCP.",
-    status: "Open source",
-    href: "https://specdrift.qorpe.com",
-    link: "specdrift.qorpe.com",
-  },
-  {
-    name: "Mockifyr",
-    text: "A self-hosted, multi-protocol mock and integration sandbox in one container. The mock system behind every sandbox we ship.",
-    status: "Open source",
-    href: "https://mockifyr.qorpe.com",
-    link: "mockifyr.qorpe.com",
-  },
-  {
-    name: "Mediant",
-    text: "A free CQRS mediator for .NET: Result pattern, pipeline behaviors, native AOT and OpenTelemetry. A drop-in alternative to MediatR.",
-    status: "Open source",
-    href: "https://mediant.qorpe.com",
-    link: "mediant.qorpe.com",
-  },
-  {
-    name: "specanchor",
-    text: "Spec-anchored legacy modernization: rule extraction with source references, characterization tests and parity gates. Never touches application code.",
-    status: "Open source",
-    href: "https://github.com/qorpe/specanchor",
-    link: "github.com/qorpe/specanchor",
-  },
-  {
-    name: "API Portal",
-    text: "A governed partner portal: catalogue and docs, an instant sandbox per application, and a maker-checker path to production.",
-    status: "Private preview",
-    href: "mailto:hello@qorpe.com?subject=API%20Portal",
-    link: "Ask for a walkthrough",
-  },
-  {
-    name: "Coexist",
-    text: "Run the old system and its replacement side by side, prove they agree with independent reconciliation, and retire the source when you choose.",
-    status: "Private preview",
-    href: "mailto:hello@qorpe.com?subject=Coexist",
-    link: "Ask for a walkthrough",
-  },
+const MODULES = [
+  { name: "API Portal", text: "Partner onboarding with a governed catalogue, instant sandbox and a maker-checker path to production.", status: "Preview" },
+  { name: "Coexist", text: "Run a legacy system and its replacement side by side, reconcile independently, retire on evidence.", status: "Preview" },
+  { name: "Approvals", text: "The approval engine on its own: chains, stages, quorums and an audit record for any workflow.", status: "Available" },
+  { name: "File Exchange", text: "Governed file rails for the batch and partner transfers regulated estates still run on.", status: "Available" },
+  { name: "Idempotency", text: "Exactly-once semantics for payment-grade operations, with the evidence a reviewer asks for.", status: "Available" },
+  { name: "Messaging", text: "A message bus seam that stays swappable, so the broker is a choice rather than a dependency.", status: "Available" },
 ];
 
-const SECTORS = [
-  {
-    name: "Banking",
-    text: "Core replacement, factoring, limits and collateral, regulatory reporting. The places where a wrong rule is a finding, not a bug.",
-  },
-  {
-    name: "Insurance",
-    text: "Policy, claims and the audit trail behind both. Products that change every quarter on a core that cannot.",
-  },
-  {
-    name: "Telecom",
-    text: "Order management, product catalogues and partner APIs at a scale where every exception becomes a process.",
-  },
+const DEPLOY = [
+  { k: "On-premises or your cloud", v: "Runs inside your estate. Air-gapped networks are a supported configuration, not an exception." },
+  { k: "Your identity and your data", v: "Your identity provider, your databases, your key management. Nothing leaves the perimeter." },
+  { k: "Pinned and signed", v: "Every release ships with pinned dependencies, an SBOM and signed provenance." },
+  { k: "Sector-neutral core", v: "Banking, insurance and telecom rules live in configuration and content packs, not in forks." },
 ];
 
-function StatusDot({ status }: { status: string }) {
-  const open = status === "Open source";
-  return (
-    <span className="inline-flex items-center gap-2 text-ui text-muted-foreground">
-      <span
-        className={`h-1.5 w-1.5 rounded-full ${open ? "bg-ok" : "bg-accent"}`}
-        aria-hidden="true"
-      />
-      {status}
-    </span>
-  );
-}
+const SERVICES = [
+  { name: "Discovery", text: "Four to twelve weeks. We map the systems, rules and approvals you have, and end with a written plan you can act on without us." },
+  { name: "Pilot", text: "One domain, delivered through the platform, with its gates and approvals in place. The outcome is a running system and a record." },
+  { name: "Adoption", text: "Your team runs the platform; we stay until they no longer need us. Training, playbooks and the first audit cycle included." },
+];
 
 export default function Home() {
   return (
@@ -111,181 +51,180 @@ export default function Home() {
       <Header />
       <main>
         {/* Hero */}
-        <section data-parallax-host className="pt-14 pb-16 sm:pt-20 sm:pb-24">
-          <Container className="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-8">
-            <div className="max-w-[34rem]">
-              <h1 className="text-display font-semibold text-foreground">
-                Regulated software, delivered with a trail you can audit.
+        <section className="pt-16 pb-10 sm:pt-24 sm:pb-16">
+          <Container>
+            <div className="max-w-[46rem]">
+              <h1 className="text-display font-semibold">
+                Run regulated software delivery from one control room.
               </h1>
-              <p className="mt-6 max-w-[30rem] text-lead text-muted-foreground">
-                Qorpe builds a delivery platform for banks, insurers and telecoms.
-                The specification is the source of truth, deterministic gates block
-                what it forbids, and every decision, human or AI, is recorded where an
-                auditor can read it.
+              <p className="mt-6 max-w-[36rem] text-lead text-muted-foreground">
+                {PRODUCT} is an on-premises platform that governs how software changes move
+                through a bank, an insurer or a telecom: specifications, gates, approvals and
+                AI, with a trail your auditor can read.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <a
-                  href="mailto:hello@qorpe.com"
+                  href="mailto:hello@qorpe.com?subject=Demo%20request"
                   className="rounded-md bg-primary px-4 py-2.5 text-body font-medium text-primary-foreground transition-opacity hover:opacity-90"
                 >
-                  Talk to us
+                  Request a demo
                 </a>
                 <a
-                  href="https://github.com/qorpe"
-                  className="rounded-md border border-border-strong px-4 py-2.5 text-body font-medium text-foreground transition-colors hover:bg-muted"
+                  href="#platform"
+                  className="rounded-md px-4 py-2.5 text-body font-medium text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  See the code on GitHub
+                  See how it works
                 </a>
               </div>
-              <p className="mt-6 text-ui text-faint">
-                Open-source core. Product modules in private preview. A small advisory practice.
-              </p>
-            </div>
-            <GateStack />
-          </Container>
-        </section>
-
-        {/* The cycle */}
-        <section id="platform" className="border-t border-border py-16 sm:py-24">
-          <Container>
-            <div className="grid gap-10 lg:grid-cols-[280px_1fr] lg:gap-16">
-              <div>
-                <h2 className="text-h2 font-semibold">What a change goes through</h2>
-                <p className="mt-4 text-body text-muted-foreground">
-                  Five gates, in this order, every time. The order is the product:
-                  a step cannot be skipped, and each one writes its own line into the record.
-                </p>
-              </div>
-              <ol className="grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2 lg:grid-cols-1">
-                {STEPS.map((s, i) => (
-                  <li key={s.name} className="grid gap-2 bg-background p-5 sm:grid-cols-[48px_160px_1fr] sm:gap-4 sm:p-6">
-                    <span className="font-mono text-ui text-faint">{String(i + 1).padStart(2, "0")}</span>
-                    <h3 className="text-body font-semibold">{s.name}</h3>
-                    <p className="text-body text-muted-foreground">{s.text}</p>
-                  </li>
-                ))}
-              </ol>
             </div>
           </Container>
+          <div className="mt-14 px-4 sm:mt-20 sm:px-8">
+            <ProductWindow />
+          </div>
         </section>
 
-        {/* Where AI fits */}
-        <section className="border-t border-border py-16 sm:py-24">
-          <Container className="grid gap-10 lg:grid-cols-[280px_1fr] lg:gap-16">
-            <h2 className="text-h2 font-semibold">AI works inside the gates, not around them</h2>
-            <div className="max-w-[40rem] space-y-5 text-lead text-muted-foreground">
-              <p>
-                Assistants and coding agents drive the cycle through skills, and they call the
-                same verifiers a person would, over MCP. The engine&rsquo;s output is reproducible;
-                the model&rsquo;s contribution is reviewed and recorded exactly like a human&rsquo;s.
-              </p>
-              <p>
-                That is what makes AI usable in a regulated room: not a faster model, but a
-                record that shows which spec a change came from, which gate it cleared, and who
-                said yes. A gateway module that puts the same policy and trail in front of model
-                calls at runtime is on the roadmap.
-              </p>
-            </div>
-          </Container>
-        </section>
-
-        {/* Products ledger */}
-        <section id="products" className="border-t border-border py-16 sm:py-24">
+        {/* Platform */}
+        <section id="platform" className="py-16 sm:py-24">
           <Container>
             <div className="max-w-[40rem]">
-              <h2 className="text-h2 font-semibold">Products</h2>
-              <p className="mt-4 text-body text-muted-foreground">
-                One platform train; everything below binds the published packages the way an
-                adopter does. The open-source line is on NuGet, npm and GitHub today.
+              <h2 className="text-h2 font-semibold">What the platform governs</h2>
+              <p className="mt-4 text-lead text-muted-foreground">
+                Four things a regulated organisation has to prove about every change. The
+                Control Room keeps them in one place, in one record.
               </p>
             </div>
-            <ul className="mt-10 border-t border-border">
-              {PRODUCTS.map((p) => (
-                <li
-                  key={p.name}
-                  className="grid gap-2 border-b border-border py-5 sm:grid-cols-[160px_1fr_150px] sm:gap-6 sm:py-6"
-                >
-                  <div>
-                    <h3 className="text-body font-semibold">{p.name}</h3>
-                    <div className="mt-1 sm:hidden">
-                      <StatusDot status={p.status} />
-                    </div>
-                  </div>
-                  <p className="max-w-[44rem] text-body text-muted-foreground">{p.text}</p>
-                  <div className="flex flex-col gap-1.5 sm:items-end sm:text-right">
-                    <span className="hidden sm:block">
-                      <StatusDot status={p.status} />
-                    </span>
-                    <a
-                      href={p.href}
-                      className="text-ui text-accent underline-offset-4 hover:underline"
-                    >
-                      {p.link}
-                    </a>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </Container>
-        </section>
-
-        {/* Sectors */}
-        <section id="sectors" className="border-t border-border py-16 sm:py-24">
-          <Container className="grid gap-10 lg:grid-cols-[280px_1fr] lg:gap-16">
-            <div>
-              <h2 className="text-h2 font-semibold">Built for the rooms we have worked in</h2>
-              <p className="mt-4 text-body text-muted-foreground">
-                The platform is sector-neutral by construction. The judgement about what a gate
-                must check is not, and it comes from these three.
-              </p>
-            </div>
-            <div className="grid gap-8 sm:grid-cols-3">
-              {SECTORS.map((s) => (
-                <div key={s.name} className="border-t border-border-strong pt-4">
-                  <h3 className="text-body font-semibold">{s.name}</h3>
-                  <p className="mt-2 text-body text-muted-foreground">{s.text}</p>
+            <div className="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2">
+              {CAPABILITIES.map((c) => (
+                <div key={c.name}>
+                  <h3 className="text-h3 font-semibold">{c.name}</h3>
+                  <p className="mt-2 max-w-[30rem] text-body text-muted-foreground">{c.text}</p>
                 </div>
               ))}
             </div>
           </Container>
         </section>
 
-        {/* Advisory */}
-        <section id="advisory" className="border-t border-border py-16 sm:py-24">
-          <Container className="grid gap-10 lg:grid-cols-[280px_1fr] lg:gap-16">
-            <h2 className="text-h2 font-semibold">A small practice, by design</h2>
-            <div className="max-w-[40rem] space-y-5 text-lead text-muted-foreground">
-              <p>
-                We take on a few engagements a year. A discovery that ends in a written plan.
-                A pilot that ends in a running system with its gates in place. Or an adoption of
-                the platform by your own team, with us leaving when they no longer need us.
-              </p>
-              <p>
-                We say the unflattering half out loud: discovery gets faster with this approach;
-                rule validation, cutover and regulatory sign-off do not. The platform exists to
-                make those three defensible, not quick.
-              </p>
-              <p className="text-body">
-                <a href="mailto:hello@qorpe.com" className="font-medium text-foreground underline underline-offset-4">
-                  hello@qorpe.com
-                </a>
+        {/* Modules */}
+        <section id="modules" className="py-16 sm:py-24">
+          <Container>
+            <div className="panel p-6 sm:p-10">
+              <div className="max-w-[40rem]">
+                <h2 className="text-h2 font-semibold">Qorpe Enterprise Modules</h2>
+                <p className="mt-4 text-lead text-muted-foreground">
+                  Product modules that deploy into your estate on the same platform. Each one
+                  arrives with its gates and its approval chains already wired.
+                </p>
+              </div>
+              <ul className="mt-10 grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+                {MODULES.map((m) => (
+                  <li key={m.name}>
+                    <div className="flex items-center gap-3">
+                      <h3 className="text-body font-semibold">{m.name}</h3>
+                      <span
+                        className={`text-ui ${m.status === "Available" ? "text-ok" : "text-accent"}`}
+                      >
+                        {m.status}
+                      </span>
+                    </div>
+                    <p className="mt-1.5 text-body text-muted-foreground">{m.text}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Container>
+        </section>
+
+        {/* Deployment */}
+        <section id="deploy" className="py-16 sm:py-24">
+          <Container className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:gap-20">
+            <div>
+              <h2 className="text-h2 font-semibold">Built for the room you deploy in</h2>
+              <p className="mt-4 text-lead text-muted-foreground">
+                Regulated estates do not get to choose their constraints. The platform is
+                designed around them.
               </p>
             </div>
+            <dl className="grid gap-8 sm:grid-cols-2">
+              {DEPLOY.map((d) => (
+                <div key={d.k}>
+                  <dt className="text-body font-semibold">{d.k}</dt>
+                  <dd className="mt-1.5 text-body text-muted-foreground">{d.v}</dd>
+                </div>
+              ))}
+            </dl>
+          </Container>
+        </section>
+
+        {/* Services */}
+        <section id="services" className="py-16 sm:py-24">
+          <Container>
+            <div className="max-w-[40rem]">
+              <h2 className="text-h2 font-semibold">We put it in with you</h2>
+              <p className="mt-4 text-lead text-muted-foreground">
+                A small practice that takes on a few engagements a year. Every one ends in
+                something your team keeps.
+              </p>
+            </div>
+            <div className="mt-12 grid gap-6 lg:grid-cols-3">
+              {SERVICES.map((s) => (
+                <div key={s.name} className="panel p-6">
+                  <h3 className="text-h3 font-semibold">{s.name}</h3>
+                  <p className="mt-2 text-body text-muted-foreground">{s.text}</p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-8 max-w-[40rem] text-body text-muted-foreground">
+              We say the unflattering half out loud: discovery gets faster with this approach;
+              rule validation, cutover and regulatory sign-off do not. The platform exists to
+              make those three defensible, not quick.
+            </p>
+          </Container>
+        </section>
+
+        {/* Open foundations + CTA */}
+        <section className="py-16 sm:py-24">
+          <Container>
+            <div className="panel flex flex-col gap-8 p-8 sm:p-12 lg:flex-row lg:items-center lg:justify-between">
+              <div className="max-w-[36rem]">
+                <h2 className="text-h2 font-semibold">See it on your own change</h2>
+                <p className="mt-3 text-lead text-muted-foreground">
+                  Bring one real change request. We will walk it through the Control Room
+                  end to end, on a call.
+                </p>
+              </div>
+              <div className="flex flex-col items-start gap-3">
+                <a
+                  href="mailto:hello@qorpe.com?subject=Demo%20request"
+                  className="rounded-md bg-primary px-5 py-3 text-body font-medium text-primary-foreground transition-opacity hover:opacity-90"
+                >
+                  Request a demo
+                </a>
+                <a href="mailto:hello@qorpe.com" className="text-ui text-muted-foreground hover:text-foreground">
+                  hello@qorpe.com
+                </a>
+              </div>
+            </div>
+            <p className="mt-8 text-ui text-faint">
+              The platform core is built in the open.{" "}
+              <a href="https://github.com/qorpe" className="text-muted-foreground underline-offset-4 hover:text-foreground hover:underline">
+                github.com/qorpe
+              </a>
+            </p>
           </Container>
         </section>
       </main>
 
-      <footer className="border-t border-border py-10">
+      <footer className="border-t border-line py-10">
         <Container className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2.5">
             <span className="mark h-5 w-5" aria-hidden="true" />
             <span className="text-ui text-muted-foreground">© 2026 Qorpe</span>
           </div>
           <nav className="flex flex-wrap gap-x-5 gap-y-2 text-ui text-muted-foreground" aria-label="Footer">
+            <a href="#platform" className="hover:text-foreground">Platform</a>
+            <a href="#modules" className="hover:text-foreground">Modules</a>
+            <a href="#services" className="hover:text-foreground">Services</a>
             <a href="https://github.com/qorpe" className="hover:text-foreground">GitHub</a>
-            <a href="https://mockifyr.qorpe.com" className="hover:text-foreground">Mockifyr docs</a>
-            <a href="https://specdrift.qorpe.com" className="hover:text-foreground">specdrift docs</a>
-            <a href="https://mediant.qorpe.com" className="hover:text-foreground">Mediant docs</a>
             <a href="mailto:hello@qorpe.com" className="hover:text-foreground">hello@qorpe.com</a>
           </nav>
         </Container>
