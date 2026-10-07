@@ -2,39 +2,39 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Container, Reveal, Tag, TwoTone } from "./ui";
-import { AnalyzerVisual, ApproveVisual, DriftVisual, GenerateVisual, PolicyVisual, ReleaseVisual, SpecifyVisual, TestsVisual, TrailVisual, VerifyVisual } from "./visuals";
+import { AnalyzerVisual, ApproveVisual, DriftVisual, GenerateVisual, PolicyVisual, ReleaseVisual, Screen, SpecifyVisual, TestsVisual, TrailVisual, VerifyVisual } from "./visuals";
 
 const TABS = [
   {
-    id: "specify", rail: "Specify",
+    id: "specify", screen: ["Specifications", "Specifications / Limits", "Specifications", "Drift check · LIM-07"], rail: "Specify",
     lead: ["Every change starts from a specification.", "Rules, contracts and requirements are versioned records. A change is opened from a revision and stays linked to it."],
     second: ["Nothing is implied, nothing drifts in silence.", "The manifest is the single source of truth; a module that is disabled does not exist in the build at all."],
     Visual: SpecifyVisual,
     Second: DriftVisual,
   },
   {
-    id: "generate", rail: "Generate",
+    id: "generate", screen: ["Changes", "Changes / CR-2318 · engine", "Changes", "Changes / CR-2318 · tests"], rail: "Generate",
     lead: ["The engine is deterministic.", "Code, migrations and tests are produced from the spec by an engine that never calls a model."],
     second: ["Same input, same output.", "That is what a reviewer needs in order to trust it, and what an auditor needs in order to reproduce it."],
     Visual: GenerateVisual,
     Second: TestsVisual,
   },
   {
-    id: "verify", rail: "Verify",
+    id: "verify", screen: ["Gates", "Gates / CR-2318", "Gates", "Gates / analyzers"], rail: "Verify",
     lead: ["Gates block, they do not warn.", "Drift against the spec, analyzers, contract tests, security review. A failing gate stops the merge."],
     second: ["Every standard ships with its verifier.", "A suppression without a written reason is itself a failure, not a shortcut."],
     Visual: VerifyVisual,
     Second: AnalyzerVisual,
   },
   {
-    id: "approve", rail: "Approve",
+    id: "approve", screen: ["Approvals", "Approvals / CR-2318", "Approvals", "Approvals / chains"], rail: "Approve",
     lead: ["Maker-checker, the way your policy says.", "Chains per change type: stages, quorums, distinct eyes. Configured once, enforced every time."],
     second: ["Each decision records who, what and which revision.", "The record is the one your auditor reads, not a screenshot someone made later."],
     Visual: ApproveVisual,
     Second: PolicyVisual,
   },
   {
-    id: "release", rail: "Release",
+    id: "release", screen: ["Releases", "Releases / train 0.1.0", "Audit trail", "Audit trail / CR-2318"], rail: "Release",
     lead: ["Every release carries its proof.", "Pinned dependencies, an SBOM and signed provenance travel with the train."],
     second: ["Air-gapped estates install from the same artefacts.", "Verified the same way, and the trail closes with the promotion entry."],
     Visual: ReleaseVisual,
@@ -92,16 +92,16 @@ export function Platform() {
                   ref={(el) => { refs.current[t.id] = el; }}
                   className="min-w-0 scroll-mt-28 overflow-hidden rounded-2xl border border-line bg-white"
                 >
-                  <div className="grid min-w-0 gap-8 p-5 sm:p-9 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
+                  <div className="grid min-w-0 gap-8 p-5 sm:px-8 sm:pt-11 sm:pb-10 lg:grid-cols-[460px_1fr] lg:gap-10">
                     <div>
                       <div className="mb-4 text-xs text-gray-2 lg:hidden">{t.rail}</div>
-                      <TwoTone as="h3" className="max-w-[28rem] text-lead font-medium" strong={t.lead[0]} rest={t.lead[1]} />
+                      <TwoTone as="h3" className="max-w-[26rem] text-lead font-medium" strong={t.lead[0]} rest={t.lead[1]} />
                     </div>
-                    <Reveal className="min-w-0"><t.Visual /></Reveal>
+                    <Reveal className="min-w-0"><Screen active={t.screen[0]} title={t.screen[1]}><t.Visual /></Screen></Reveal>
                   </div>
-                  <div className="grid min-w-0 gap-8 border-t border-line-3 p-5 sm:p-9 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
-                    <TwoTone as="p" className="max-w-[28rem] text-lead font-medium" strong={t.second[0]} rest={t.second[1]} />
-                    <Reveal className="min-w-0"><Second /></Reveal>
+                  <div className="grid min-w-0 gap-8 border-t border-line-3 p-5 sm:px-8 sm:pt-11 sm:pb-10 lg:grid-cols-[460px_1fr] lg:gap-10">
+                    <TwoTone as="p" className="max-w-[26rem] text-lead font-medium" strong={t.second[0]} rest={t.second[1]} />
+                    <Reveal className="min-w-0"><Screen active={t.screen[2]} title={t.screen[3]}><Second /></Screen></Reveal>
                   </div>
                 </article>
               );

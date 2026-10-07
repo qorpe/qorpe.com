@@ -2,24 +2,6 @@ import { Dot } from "./ui";
 
 /* ---------- Hero product window (light) ---------- */
 
-const GATES = [
-  { name: "Specification drift", note: "LIM-07 rev 14 · 0 findings", state: "Passed", tone: "ok" },
-  { name: "Build and analyzers", note: "GP rules · 0 suppressed", state: "Passed", tone: "ok" },
-  { name: "Contract tests", note: "41 of 41 · sandbox 2.3", state: "Passed", tone: "ok" },
-  { name: "Security review", note: "assigned to Security", state: "Waiting", tone: "warn" },
-] as const;
-const APPROVALS = [
-  { role: "Maker", who: "Product engineering", state: "Submitted", tone: "ok" },
-  { role: "Checker", who: "Credit risk", state: "Pending", tone: "warn" },
-  { role: "Release", who: "Change advisory", state: "Not yet", tone: "idle" },
-] as const;
-const TRAIL = [
-  { t: "09:41", text: "Change opened from specification LIM-07, revision 14" },
-  { t: "09:52", text: "AI proposal: migration 0042 and 3 tests, reviewed by Maker" },
-  { t: "10:03", text: "Gate: specification drift passed" },
-  { t: "10:11", text: "Gate: contract tests passed against sandbox 2.3" },
-  { t: "10:12", text: "Approval requested from Checker (Credit risk)" },
-] as const;
 const NAV = ["Home", "Changes", "Specifications", "Gates", "Approvals", "AI gateway", "Audit trail", "Reports"];
 
 function Frame({ title, right, children, className = "" }: { title: string; right?: string; children: React.ReactNode; className?: string }) {
@@ -35,86 +17,113 @@ function Frame({ title, right, children, className = "" }: { title: string; righ
 }
 
 export function ProductWindow() {
+  const decisions = [
+    ["CR-2318", "Limit allocation: receivable pool", "Checker review", "11:00"],
+    ["CR-2311", "Collateral revaluation window", "Release approval", "today"],
+    ["CR-2297", "Liquidity report, BRSA layout", "Specification sign-off", "Thu"],
+  ];
+  const today = [
+    ["Gates run", "41", "ok"],
+    ["Blocked", "1", "warn"],
+    ["Approvals pending", "2", "warn"],
+    ["Released", "3", "ok"],
+  ];
   return (
-    <div className="window overflow-hidden" role="img" aria-label="Qorpe Control Room: a change with its gates, approvals and audit trail">
+    <div className="window overflow-hidden" role="img" aria-label="Qorpe Control Room home: a greeting, an ask box, decisions waiting and today's gates">
       <div className="flex items-center gap-2 border-b border-line px-4 py-2.5">
         <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
       </div>
-      <div className="grid sm:grid-cols-[210px_1fr]">
+      <div className="grid sm:grid-cols-[220px_1fr]">
         <nav className="hidden border-r border-line bg-band p-3 text-sm sm:block" aria-hidden="true">
           <div className="mb-3 flex items-center gap-2 px-2 py-1">
             <span className="mark h-4 w-4 text-ink" />
             <span className="font-medium">Control Room</span>
             <span className="text-gray-2">▾</span>
           </div>
-          <div className="mb-2 flex items-center justify-between rounded-md border border-line bg-white px-2 py-1.5 text-xs text-gray">
+          <div className="mb-3 flex items-center justify-between rounded-md border border-line bg-white px-2 py-1.5 text-xs text-gray">
             Quick actions <span className="font-mono text-gray-2">⌘K</span>
           </div>
           {NAV.map((item, i) => (
-            <div key={item} className={`rounded-md px-2 py-1.5 ${i === 1 ? "bg-white font-medium text-ink shadow-[0_0_0_1px_rgb(20_20_22/0.06)]" : "text-ink-2"}`}>{item}</div>
+            <div key={item} className={`rounded-md px-2 py-1.5 ${i === 0 ? "bg-white font-medium text-ink shadow-[0_0_0_1px_rgb(20_20_22/0.06)]" : "text-ink-2"}`}>{item}</div>
           ))}
-          <div className="mt-4 px-2 text-xs text-gray-2">Workspace</div>
-          {["Limits", "Collateral", "Reporting"].map((w) => <div key={w} className="rounded-md px-2 py-1.5 text-ink-2">{w}</div>)}
+          <div className="mt-5 px-2 text-xs text-gray-2">Workspace</div>
+          {["Limits", "Collateral", "Reporting", "Partner API"].map((w) => <div key={w} className="rounded-md px-2 py-1.5 text-ink-2">{w}</div>)}
+          <div className="mt-5 px-2 text-xs text-gray-2">Sector packs</div>
+          {["Banking", "Insurance"].map((w) => <div key={w} className="rounded-md px-2 py-1.5 text-ink-2">{w}</div>)}
         </nav>
-        <div className="min-w-0 p-4 sm:p-6">
+        <div className="min-h-[560px] px-6 py-6 sm:px-14 sm:py-12">
           <div className="flex items-center justify-between text-xs text-gray">
-            <span>Changes / <span className="font-mono text-ink-2">CR-2318</span></span>
-            <span className="hidden sm:inline">Production · eu-central · on-premises</span>
+            <span>Home</span>
+            <span className="hidden sm:inline">Tuesday, 7 October · eu-central · on-premises</span>
           </div>
-          <div className="mt-4 rounded-xl border border-line p-3">
-            <div className="text-sm text-gray-2">Ask the record<span className="caret" aria-hidden="true" /></div>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {["Prepare the 11:00 Checker review", "What changed in LIM-07 since rev 12?", "Which gates block CR-2318?"].map((c) => (
-                <span key={c} className="rounded-full border border-line px-2.5 py-1 text-xs text-ink-2">{c}</span>
-              ))}
+          <h3 className="mt-10 text-h3 font-medium">Good morning.</h3>
+          <div className="mt-5 rounded-xl border border-line p-4 shadow-[0_1px_2px_rgb(0_0_0/0.03)]">
+            <div className="text-base text-gray-2">Ask the record<span className="caret" aria-hidden="true" /></div>
+            <div className="mt-8 flex items-center justify-between">
+              <span className="text-xs text-gray-2">Answers cite the entry they come from</span>
+              <span className="flex items-center gap-2 text-xs text-gray"><span className="rounded-md border border-line px-1.5 py-0.5">Auto</span><span className="rounded-md bg-ink px-2 py-0.5 text-white">↑</span></span>
             </div>
           </div>
-          <div className="mt-4 flex flex-wrap items-start justify-between gap-3">
+          <div className="mt-3 flex flex-wrap gap-2">
+            {["Prepare the 11:00 Checker review", "What changed in LIM-07 since rev 12?", "Which gates block CR-2318?"].map((c) => (
+              <span key={c} className="rounded-full border border-line px-2.5 py-1 text-xs text-ink-2">{c}</span>
+            ))}
+          </div>
+          <div className="mt-10 grid gap-4 lg:grid-cols-[1.3fr_1fr]">
             <div>
-              <h3 className="text-lead font-medium">Limit allocation: add collateral type “receivable pool”</h3>
-              <p className="mt-1 text-sm text-gray">From specification LIM-07 rev 14 · Module: Limits · Train 0.1.0</p>
-            </div>
-            <span className="rounded-full border border-line-2 px-2.5 py-1 text-xs text-ink-2">In review</span>
-          </div>
-          <div className="mt-5 grid min-w-0 gap-3 lg:grid-cols-[1.2fr_1fr]">
-            <Frame title="Gates" right="3 of 4 passed">
-              <ul className="divide-y divide-line-3 text-sm">
-                {GATES.map((g) => (
-                  <li key={g.name} className="flex items-center justify-between gap-3 px-4 py-2.5">
-                    <span className="flex items-center gap-2.5"><Dot tone={g.tone} />{g.name}</span>
-                    <span className="hidden font-mono text-xs text-gray-2 md:inline">{g.note}</span>
-                    <span className={g.tone === "ok" ? "text-ok" : "text-warn"}>{g.state}</span>
-                  </li>
-                ))}
-              </ul>
-            </Frame>
-            <Frame title="Approvals" right="chain: limits-change">
-              <ul className="divide-y divide-line-3 text-sm">
-                {APPROVALS.map((a) => (
-                  <li key={a.role} className="flex items-center justify-between gap-3 px-4 py-2.5">
-                    <span className="flex items-center gap-2.5"><Dot tone={a.tone} />{a.role}<span className="text-gray-2">{a.who}</span></span>
-                    <span className="text-gray">{a.state}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="flex gap-2 border-t border-line-3 px-4 py-3">
-                <span className="btn btn-primary btn-sm px-3">Approve as Checker</span>
-                <span className="btn btn-secondary btn-sm px-3">Request changes</span>
+              <div className="flex items-center justify-between text-sm">
+                <span className="font-medium">Needs your decision</span>
+                <span className="text-xs text-gray-2">3</span>
               </div>
-            </Frame>
+              <ul className="mt-3 divide-y divide-line-3 rounded-xl border border-line text-sm">
+                {decisions.map((d) => (
+                  <li key={d[0]} className="grid grid-cols-[64px_1fr_auto] items-center gap-3 px-4 py-3">
+                    <span className="font-mono text-xs text-gray">{d[0]}</span>
+                    <span className="truncate">{d[1]} <span className="text-xs text-gray-2">· {d[2]}</span></span>
+                    <span className="text-xs text-gray">{d[3]}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <div className="flex items-center justify-between text-sm">
+                <span className="font-medium">Today</span>
+                <span className="text-xs text-gray-2">since 00:00</span>
+              </div>
+              <ul className="mt-3 grid grid-cols-2 gap-2 text-sm">
+                {today.map((t) => (
+                  <li key={t[0]} className="rounded-xl border border-line px-4 py-3">
+                    <div className="flex items-center gap-2 text-xs text-gray"><Dot tone={t[2] as "ok" | "warn"} />{t[0]}</div>
+                    <div className="mt-2 text-[22px] font-medium leading-6">{t[1]}</div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-          <Frame title="Audit trail" right="today" className="mt-3">
-            <ul className="divide-y divide-line-3 text-sm">
-              {TRAIL.map((e) => (
-                <li key={e.t} className="grid grid-cols-[48px_1fr] gap-3 px-4 py-2.5">
-                  <span className="font-mono text-xs text-gray-2">{e.t}</span>
-                  <span className="text-ink-2">{e.text}</span>
-                </li>
-              ))}
-            </ul>
-          </Frame>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Screen: a small app window around a visual ---------- */
+
+export function Screen({ children, active, title }: { children: React.ReactNode; active: string; title: string }) {
+  const items = ["Home", "Changes", "Specifications", "Gates", "Approvals", "Audit trail", "Releases"];
+  return (
+    <div className="window overflow-hidden" aria-hidden="true">
+      <div className="grid min-h-[420px] sm:grid-cols-[150px_1fr]">
+        <nav className="hidden border-r border-line bg-band p-2.5 text-xs sm:block">
+          <div className="mb-3 flex items-center gap-1.5 px-2 py-1"><span className="mark h-3.5 w-3.5 text-ink" /><span className="font-medium">Control Room</span></div>
+          {items.map((it) => (
+            <div key={it} className={`rounded-md px-2 py-1.5 ${it === active ? "bg-white font-medium text-ink shadow-[0_0_0_1px_rgb(20_20_22/0.06)]" : "text-ink-2"}`}>{it}</div>
+          ))}
+        </nav>
+        <div className="p-4 sm:p-6">
+          <div className="mb-4 text-xs text-gray">{title}</div>
+          {children}
         </div>
       </div>
     </div>
