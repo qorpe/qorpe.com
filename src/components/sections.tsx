@@ -8,9 +8,9 @@ export function Hero() {
   return (
     <section className="pt-20 pb-16 sm:pt-28">
       <Container>
-        <div className="mx-auto max-w-[56rem] text-center">
+        <div className="mx-auto max-w-[68rem] text-center">
           <Reveal>
-            <a href="#platform" className="inline-flex h-[30px] items-center gap-1.5 rounded-[13px] border border-line-3 px-3 text-base font-medium text-ink hover:bg-chip">
+            <a href="#platform" className="inline-flex h-[30px] items-center gap-1.5 rounded-[9px] border border-line-3 px-3 text-base font-medium text-ink hover:bg-chip">
               {PRODUCT} 0.1, private preview <Chevron />
             </a>
           </Reveal>
@@ -155,20 +155,24 @@ const PRODUCTS = [
   { icon: "doc", name: "File Exchange", status: "Available", text: "Governed file rails for the batch and partner transfers regulated estates still run on." },
 ];
 
-const RINGS: [string, string, string[]][] = [
-  ["Ring A", "The floor, always on", ["ServiceDefaults", "ApiDefaults", "Data with outbox", "Messaging seam", "Abstractions"]],
-  ["Ring B", "Cross-cutting capabilities", ["Auth", "Idempotency", "AuditTrail", "MultiTenancy", "SoftDelete", "Locking", "Caching", "DataProtection"]],
-  ["Ring C", "Heavy-duty modules and ops", ["Jobs", "Bulk", "Archival", "Notification", "Campaign", "Console"]],
+
+
+const LAYERS: { name: string; kicker: string; items: string[]; dark?: boolean }[] = [
+  { name: "Products", kicker: "Built on the train, bind the published packages", items: ["API Portal", "Coexist", "Approvals", "File Exchange"] },
+  { name: "Ring C", kicker: "Heavy-duty modules and ops", items: ["Jobs", "Bulk", "Archival", "Notification", "Campaign", "Console"] },
+  { name: "Ring B", kicker: "Cross-cutting capabilities", items: ["Auth", "Idempotency", "AuditTrail", "MultiTenancy", "SoftDelete", "Locking", "Caching", "DataProtection"] },
+  { name: "Ring A", kicker: "The floor, always on", items: ["ServiceDefaults", "ApiDefaults", "Data with outbox", "Messaging seam", "Abstractions"] },
+  { name: "Substrate", kicker: "Microsoft, taken as-is. Configured, never wrapped.", items: [".NET LTS", "Aspire", "EF Core", "MassTransit", "Quartz", "OpenTelemetry"], dark: true },
 ];
 
 export function Modules() {
   return (
     <section id="modules" className="border-t border-line py-28">
       <Container>
-        <Reveal className="max-w-[56rem]">
+        <Reveal className="max-w-[68rem]">
           <Tag>Modules</Tag>
           <h2 className="mt-5 text-h2 font-medium">
-            One train, three rings, and the products on top. <span className="text-gray">Everything binds the published packages the way an adopter does. A disabled module does not exist in the application; composition is compile-time.</span>
+            One train, three rings, and the products on top. <span className="text-gray">Each layer stands on the one below it. A disabled module does not exist in the application; composition is compile-time.</span>
           </h2>
           <a href="mailto:hello@qorpe.com?subject=Modules" className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-ink-2 hover:text-ink">Ask for a walkthrough <Arrow /></a>
         </Reveal>
@@ -184,20 +188,28 @@ export function Modules() {
             </Reveal>
           ))}
         </ul>
-        <Reveal className="mt-4 overflow-hidden rounded-2xl border border-line">
-          <div className="grid divide-y divide-line lg:grid-cols-3 lg:divide-x lg:divide-y-0">
-            {RINGS.map(([ring, desc, items]) => (
-              <div key={ring} className="p-6">
-                <div className="flex items-baseline justify-between"><h3 className="text-lead font-medium">{ring}</h3><span className="text-xs text-gray-2">{items.length} packages</span></div>
-                <p className="mt-1 text-sm text-gray">{desc}</p>
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {items.map((it) => <span key={it} className="rounded-md border border-line px-2 py-0.5 font-mono text-xs text-ink-2">{it}</span>)}
+        <Reveal className="mt-6 overflow-hidden rounded-2xl border border-line">
+          {LAYERS.map((l, i) => (
+            <div key={l.name} className={`grid gap-4 border-b border-line last:border-b-0 sm:grid-cols-[220px_1fr] ${l.dark ? "dark-zone bg-dark text-dark-ink" : i === 0 ? "bg-band" : "bg-white"}`}>
+              <div className="px-6 pt-5 sm:py-5">
+                <div className="flex items-center gap-2">
+                  <span className={`font-mono text-xs ${l.dark ? "text-dark-gray" : "text-gray-2"}`}>0{LAYERS.length - i}</span>
+                  <h3 className="text-base font-medium">{l.name}</h3>
                 </div>
+                <p className={`mt-1 text-xs ${l.dark ? "text-dark-gray" : "text-gray"}`}>{l.kicker}</p>
               </div>
-            ))}
-          </div>
-          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line bg-band px-6 py-4 text-sm text-gray">
-            <span>Substrate taken as-is: .NET LTS, Aspire, EF Core, MassTransit, Quartz, OpenTelemetry. Configured, never wrapped.</span>
+              <ul className={`grid grid-cols-2 px-6 pb-5 sm:grid-cols-4 sm:py-5 ${l.dark ? "divide-dark-line" : ""}`}>
+                {l.items.map((it) => (
+                  <li key={it} className={`flex items-center gap-2 py-1.5 text-sm ${l.dark ? "text-dark-ink/85" : "text-ink-2"}`}>
+                    <span className={`h-1.5 w-1.5 rounded-full ${l.dark ? "bg-dark-gray" : i === 0 ? "bg-[#3b5bdb]" : "bg-line-2"}`} />
+                    <span className={l.dark ? "" : "font-mono text-xs"}>{it}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line px-6 py-4 text-sm text-gray">
+            <span>Goldpath on NuGet: 0.1.0-preview.8. The console, the CLI and the analyzers ship on the same train.</span>
             <a href="https://github.com/qorpe/goldpath" className="inline-flex items-center gap-1.5 font-medium text-ink-2 hover:text-ink">Goldpath on GitHub <Arrow /></a>
           </div>
         </Reveal>
@@ -218,7 +230,7 @@ export function Services() {
   return (
     <section id="services" className="border-t border-line bg-band py-28">
       <Container>
-        <Reveal className="max-w-[56rem]">
+        <Reveal className="max-w-[68rem]">
           <Tag>Services</Tag>
           <h2 className="mt-5 text-h2 font-medium">
             We put it in with you. <span className="text-gray">A small practice that takes on a few engagements a year. Every one ends in something your team keeps.</span>

@@ -32,7 +32,7 @@ function Sidebar({ active, compact = false }: { active: string; compact?: boolea
       <div className={`mb-3 flex items-center gap-2 px-2 ${compact ? "py-0.5" : "py-1"}`}>
         <span className={`mark text-ink ${compact ? "h-3.5 w-3.5" : "h-4 w-4"}`} />
         <span className="font-medium">{PRODUCT}</span>
-        {!compact ? <span className="ml-auto text-gray-2">▾</span> : null}
+        {!compact ? <span className="ml-auto text-gray-2"><Icon name="chevronDown" size={14} /></span> : null}
       </div>
       {!compact ? (
         <div className="mb-2 flex items-center justify-between rounded-md border border-line bg-white px-2 py-1.5 text-xs text-gray">
@@ -110,7 +110,7 @@ export function ProductWindow() {
               <div className="px-1 pt-1 text-base text-gray-2">Ask the record, or start a change<span className="caret" aria-hidden="true" /></div>
               <div className="mt-8 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-line text-gray"><Icon name="plus" size={14} /></span>
+                  <span className="round-icon border border-line text-gray"><Icon name="plus" size={15} /></span>
                   <span className="seg">
                     <span data-on="true">Ask</span>
                     <span>Build</span>
@@ -119,13 +119,13 @@ export function ProductWindow() {
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="hidden text-xs text-gray-2 md:inline">Answers cite the entry they come from</span>
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-ink text-white"><Icon name="send" size={14} /></span>
+                  <span className="round-icon bg-ink text-white"><Icon name="send" size={15} /></span>
                 </div>
               </div>
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
               {["Prepare the 11:00 Checker review", "Why are there two copies of RULE-0105?", "Open a change from SPEC-LIM-07 rev 14"].map((c) => (
-                <span key={c} className="rounded-full border border-line px-2.5 py-1 text-xs text-ink-2">{c}</span>
+                <span key={c} className="chip">{c}</span>
               ))}
             </div>
             <div className="mt-10 grid gap-4 lg:grid-cols-[1.3fr_1fr]">
@@ -286,7 +286,7 @@ export function WorkspaceVisual() {
           <div className="px-1 text-gray-2">Reply<span className="caret" aria-hidden="true" /></div>
           <div className="mt-3 flex items-center justify-between">
             <span className="seg"><span>Ask</span><span data-on="true">Build</span><span>Review</span></span>
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-ink text-white"><Icon name="send" size={12} /></span>
+            <span className="round-icon bg-ink text-white" style={{ width: 28, height: 28, borderRadius: 8 }}><Icon name="send" size={13} /></span>
           </div>
         </div>
       </div>
@@ -311,9 +311,9 @@ export function PrVisual() {
         ))}
       </ul>
       <div className="flex items-center gap-2 border-t border-line-3 px-4 py-3 text-xs">
-        <span className="rounded-full bg-[#f0fdf4] px-2 py-0.5 text-ok">checks passed</span>
-        <span className="rounded-full bg-chip px-2 py-0.5 text-gray">commit carries RULE-P002</span>
-        <span className="rounded-full bg-chip px-2 py-0.5 text-gray">reviewed by Maker</span>
+        <span className="rounded-md bg-[#f0fdf4] px-2 py-0.5 text-ok">checks passed</span>
+        <span className="rounded-md bg-chip px-2 py-0.5 text-gray">commit carries RULE-P002</span>
+        <span className="rounded-md bg-chip px-2 py-0.5 text-gray">reviewed by Maker</span>
       </div>
     </Frame>
   );

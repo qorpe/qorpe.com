@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Arrow, Container, Icon, Reveal, Tag } from "./ui";
 import { Actors, Hex } from "./visuals";
+import { TrailLine } from "./trail-line";
 
 const TRAIL_COLS = [
   { icon: "gate", strong: "Every gate writes.", rest: "What ran, on which revision, with what result." },
@@ -13,36 +14,15 @@ const TRAIL_COLS = [
 ];
 
 export function TrailIsland() {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) { el.classList.add("is-in"); io.disconnect(); } }), { threshold: 0.2 });
-    io.observe(el);
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return () => io.disconnect();
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const r = el.getBoundingClientRect();
-        const p = (r.top - window.innerHeight / 2) / window.innerHeight;
-        el.style.setProperty("--hy", `${(p * 60).toFixed(1)}px`);
-      });
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => { io.disconnect(); window.removeEventListener("scroll", onScroll); cancelAnimationFrame(raf); };
-  }, []);
   return (
     <section id="trail" className="dark-zone bg-dark text-dark-ink">
       <Container className="border-x border-dark-line">
         <div className="pt-24 text-center sm:pt-32">
           <p className="text-base font-medium text-dark-gray">The one thing a regulator asks for</p>
           <h2 className="mt-3 text-giant font-semibold">One trail.</h2>
+          <p className="mx-auto mt-5 max-w-[34rem] text-base text-dark-gray">Six stages, one line. A rule enters as evidence and leaves as a signed, tested, released decision. The same line is read again on every later change.</p>
         </div>
-        <div ref={ref} className="horizon-wrap">
-          <div className="horizon" aria-hidden="true" />
-        </div>
+        <Reveal className="px-2 pt-10 pb-6 sm:px-6"><TrailLine /></Reveal>
         <ul className="grid grid-cols-1 border-t border-dark-line sm:grid-cols-5">
           {TRAIL_COLS.map((c) => (
             <li key={c.strong} className="border-b border-dark-line px-6 py-8 sm:border-b-0 sm:border-r sm:last:border-r-0">

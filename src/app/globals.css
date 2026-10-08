@@ -649,3 +649,68 @@
 @media (prefers-reduced-motion: reduce) {
   .glow-frame::before, .orbit-spin, .orbit-spin-r { animation: none; }
 }
+
+/* ============================================================================
+   Polish pass: one radius scale, softer hover, sticky rail, wider field button.
+   Scale: field 16 → buttons/segments 10 → chips/inner 8 → tags 6.
+   ========================================================================== */
+.btn { border-radius: 10px; }
+.btn-sm { border-radius: 8px; }
+.tag { border-radius: 6px; }
+.seg { border-radius: 10px; padding: 3px; }
+.seg > span { border-radius: 7px; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: var(--ink-2);
+}
+.round-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+}
+
+.card:hover {
+  border-color: #b9bdc5;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px -16px rgb(0 0 0 / 0.18);
+}
+
+.rail {
+  position: sticky;
+  top: 7rem;
+}
+.rail-btn { display: flex; align-items: center; gap: 10px; }
+.rail-btn > span.ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid var(--line);
+  color: var(--gray);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+.rail-btn[data-active="true"] > span.ico { color: var(--ink); border-color: var(--line-2); }
+.rail-btn > span.txt { display: block; }
+
+.field button { width: 44px; right: 5px; border-radius: 9px; }
+
+/* Hero: a soft light behind the words, nothing else. */
+.hero-light {
+  background:
+    radial-gradient(60% 55% at 50% 0%, rgb(59 91 219 / 0.08), transparent 70%),
+    radial-gradient(40% 40% at 50% 30%, rgb(20 20 22 / 0.03), transparent 70%);
+}
+
+/* The trail line: one path, six nodes, a pulse that lights them as it passes. */
+.trail-node { fill: #101010; stroke: rgb(255 255 255 / 0.35); }
+.trail-label { fill: rgb(255 255 255 / 0.55); font-size: 12px; font-family: var(--font-sans); }
