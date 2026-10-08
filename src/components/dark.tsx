@@ -21,7 +21,7 @@ export function TrailIsland() {
           <h2 className="mt-3 text-giant font-semibold">One trail.</h2>
           <p className="mx-auto mt-5 max-w-[34rem] text-base text-dark-gray">One line through everything that moves: a rule enters as evidence and leaves as a signed, tested, released decision. The same line is read again on every later change.</p>
         </div>
-        <div className="h-[340px] sm:h-[420px]"><Wire variant="wave" /></div>
+        <div className="h-[340px] sm:h-[440px]"><Wire variant="wave" /></div>
         <ul className="grid grid-cols-1 border-t border-dark-line sm:grid-cols-5">
           {TRAIL_COLS.map((c) => (
             <li key={c.strong} className="border-b border-dark-line px-6 py-8 sm:border-b-0 sm:border-r sm:last:border-r-0">
@@ -105,7 +105,7 @@ export function BuildIsland() {
             <a href="https://github.com/qorpe" className="btn btn-primary btn-sm mt-6">View the source <Arrow /></a>
           </Reveal>
         </div>
-        <div className="h-[360px] lg:h-auto lg:min-h-[420px]"><Wire variant="tunnel" /></div>
+        <div className="h-[360px] lg:h-auto lg:min-h-[420px]"><Wire variant="train" /></div>
       </Container>
     </section>
   );
