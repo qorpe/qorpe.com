@@ -64,12 +64,12 @@ export function Screen({ children, active, title, right }: { children: React.Rea
     <div className="window overflow-hidden" aria-hidden="true">
       <div className="grid min-h-[400px] sm:grid-cols-[190px_1fr]">
         <Sidebar active={active} compact />
-        <div className="p-4 sm:p-7">
-          <div className="mb-4 flex items-center justify-between text-xs text-gray">
-            <span>{title}</span>
-            {right ? <span className="text-gray-2">{right}</span> : null}
+        <div className="min-w-0 p-4 sm:p-7">
+          <div className="mb-4 flex items-center justify-between gap-3 text-xs text-gray">
+            <span className="truncate">{title}</span>
+            {right ? <span className="truncate text-gray-2">{right}</span> : null}
           </div>
-          <div className="max-w-[760px]">{children}</div>
+          <div className="min-w-0 max-w-[760px]">{children}</div>
         </div>
       </div>
     </div>
