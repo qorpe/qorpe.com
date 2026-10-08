@@ -492,3 +492,160 @@
   .horizon-wrap.is-in .horizon, .is-in .draw *, .caret, .is-in .chart-line { animation: none; }
   .draw *, .chart-line { stroke-dasharray: none; stroke-dashoffset: 0; }
 }
+
+/* ============================================================================
+   Finalize pass.
+   ========================================================================== */
+
+/* Dropdown: opaque, no blur (the hero no longer shows through). */
+.menu-panel {
+  background: #ffffff;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* Cards everywhere: the edge turns ink on hover, like the family site. */
+.card {
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+.card:hover {
+  border-color: var(--ink);
+}
+
+/* Hero window: a light that travels around the edge. */
+@property --ang {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.glow-frame {
+  position: relative;
+  border-radius: 16px;
+}
+.glow-frame::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 17px;
+  background: conic-gradient(from var(--ang), transparent 0deg, rgb(59 91 219 / 0.55) 40deg, rgb(120 150 255 / 0.9) 60deg, rgb(59 91 219 / 0.55) 80deg, transparent 120deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 1px;
+  animation: glow-turn 9s linear infinite;
+  pointer-events: none;
+}
+@keyframes glow-turn {
+  to { --ang: 360deg; }
+}
+
+/* Composer (the chat box in the product window). */
+.composer {
+  border: 1px solid var(--line-2);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.03), 0 8px 24px -16px rgb(0 0 0 / 0.2);
+}
+.seg {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--chip);
+}
+.seg > span {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--gray);
+}
+.seg > span[data-on="true"] {
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
+}
+
+/* Rail: a track with a sliding marker. */
+.rail {
+  position: relative;
+  padding-left: 18px;
+}
+.rail::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: var(--line-2);
+}
+.rail-marker {
+  position: absolute;
+  left: -1px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--ink);
+  transition: top 0.45s cubic-bezier(0.3, 0.8, 0.3, 1), height 0.45s cubic-bezier(0.3, 0.8, 0.3, 1);
+}
+.rail-btn {
+  padding: 12px 14px;
+  border-radius: 10px;
+}
+.rail-btn small {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--gray-2);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.35s ease, opacity 0.35s ease;
+}
+.rail-btn[data-active="true"] small {
+  max-height: 60px;
+  opacity: 1;
+}
+
+/* Newsletter: the button lives inside the field. */
+.field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.field input {
+  width: 100%;
+  height: 44px;
+  padding: 0 48px 0 16px;
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  background: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.field input::placeholder { color: var(--gray-2); }
+.field input:focus { outline: none; border-color: var(--ink); }
+.field button {
+  position: absolute;
+  right: 6px;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--ink);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+.field button:hover { background: #000; transform: translateX(1px); }
+
+/* Orbits: the three actors. */
+.orbit-spin { transform-origin: 50% 50%; animation: rings-spin 70s linear infinite; }
+.orbit-spin-r { transform-origin: 50% 50%; animation: rings-spin 90s linear infinite reverse; }
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-frame::before, .orbit-spin, .orbit-spin-r { animation: none; }
+}

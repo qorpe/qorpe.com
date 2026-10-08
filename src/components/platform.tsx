@@ -2,49 +2,52 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Container, Reveal, Tag, TwoTone } from "./ui";
-import { AnalyzerVisual, ApproveVisual, DriftVisual, GenerateVisual, PolicyVisual, ReleaseVisual, Screen, SpecifyVisual, TestsVisual, TrailVisual, VerifyVisual } from "./visuals";
+import { ApprovalVisual, BoardVisual, DorVisual, FindingVisual, GatesVisual, LivingDocVisual, PrVisual, ReleaseVisual, RulesVisual, Screen, SpecTableVisual, VerdictVisual, WorkspaceVisual } from "./visuals";
 
 const TABS = [
   {
-    id: "specify", screen: ["Specifications", "Specifications / Limits", "Specifications", "Drift check · LIM-07"], rail: "Specify",
-    lead: ["Every change starts from a specification.", "Rules, contracts and requirements are versioned records. A change is opened from a revision and stays linked to it."],
-    second: ["Nothing is implied, nothing drifts in silence.", "The manifest is the single source of truth; a module that is disabled does not exist in the build at all."],
-    Visual: SpecifyVisual,
-    Second: DriftVisual,
+    id: "specify", rail: "Specify", hint: "Rules and specs, as records",
+    lead: ["Rules and specifications live here, not in documents.", "A rule card carries its source reference, its confidence and its open questions. A spec is the signed answer: a decision table, a lifecycle or EARS sentences, every line compiling to a test."],
+    second: ["Two artefacts, on purpose.", "The card may hold doubt and contradiction; the spec holds only answers. Investigation file and court verdict, and every line of the verdict cites the file."],
+    screens: [["Rules", "Rules / Temlik", RulesVisual], ["Specifications", "Specifications / SPEC-LIM-07", SpecTableVisual]],
   },
   {
-    id: "generate", screen: ["Changes", "Changes / CR-2318 · engine", "Changes", "Changes / CR-2318 · tests"], rail: "Generate",
-    lead: ["The engine is deterministic.", "Code, migrations and tests are produced from the spec by an engine that never calls a model."],
-    second: ["Same input, same output.", "That is what a reviewer needs in order to trust it, and what an auditor needs in order to reproduce it."],
-    Visual: GenerateVisual,
-    Second: TestsVisual,
+    id: "plan", rail: "Plan", hint: "Boards that know the spec",
+    lead: ["Agile, with the spec on the card.", "Boards, sprints and tickets stay in Jira or Azure Boards. The platform adds what they lack: a Definition of Ready that checks the spec is signed and its questions are closed before work starts."],
+    second: ["Dual-track, not waterfall.", "Discovery runs one slice ahead; delivery takes only work that passed the gate. The retro tracks one number: how many gates were bypassed."],
+    screens: [["Boards", "Boards / Sprint 14", BoardVisual], ["Boards", "Boards / Definition of Ready", DorVisual]],
   },
   {
-    id: "verify", screen: ["Gates", "Gates / CR-2318", "Gates", "Gates / analyzers"], rail: "Verify",
-    lead: ["Gates block, they do not warn.", "Drift against the spec, analyzers, contract tests, security review. A failing gate stops the merge."],
-    second: ["Every standard ships with its verifier.", "A suppression without a written reason is itself a failure, not a shortcut."],
-    Visual: VerifyVisual,
-    Second: AnalyzerVisual,
+    id: "build", rail: "Build", hint: "Develop with the assistant",
+    lead: ["Build with the assistant, inside the gates.", "The workspace is where a developer, an analyst or a domain owner works with the model: ask the record, start a change, turn a red test green. Every proposal is checked by the same verifiers a person would face."],
+    second: ["Source and tickets stay where they are.", "GitHub, GitLab, Azure DevOps, Jira: the platform opens the PR, links the ticket and writes the record. No second source of truth."],
+    screens: [["Changes", "Changes / CR-2318 · workspace", WorkspaceVisual], ["Changes", "Changes / PR #412", PrVisual]],
   },
   {
-    id: "approve", screen: ["Approvals", "Approvals / CR-2318", "Approvals", "Approvals / chains"], rail: "Approve",
-    lead: ["Maker-checker, the way your policy says.", "Chains per change type: stages, quorums, distinct eyes. Configured once, enforced every time."],
-    second: ["Each decision records who, what and which revision.", "The record is the one your auditor reads, not a screenshot someone made later."],
-    Visual: ApproveVisual,
-    Second: PolicyVisual,
+    id: "verify", rail: "Verify", hint: "Four gates that block",
+    lead: ["Gates block, they do not warn.", "Touch, boundary, drift, parity. A failing gate closes the merge; a suppression without a written reason is itself a failure. The gates run headless in CI, identical to the local command."],
+    second: ["The referee is a test, not an opinion.", "When code moves and the rule does not, the characterization test runs. Red means behaviour changed and the rule must move with it. Green means a refactor, and one recorded note closes it."],
+    screens: [["Gates", "Gates / PR #412", GatesVisual], ["Gates", "Gates / finding SA0401", FindingVisual]],
   },
   {
-    id: "release", screen: ["Releases", "Releases / train 0.1.0", "Audit trail", "Audit trail / CR-2318"], rail: "Release",
-    lead: ["Every release carries its proof.", "Pinned dependencies, an SBOM and signed provenance travel with the train."],
-    second: ["Air-gapped estates install from the same artefacts.", "Verified the same way, and the trail closes with the promotion entry."],
-    Visual: ReleaseVisual,
-    Second: TrailVisual,
+    id: "approve", rail: "Approve", hint: "Maker-checker, recorded",
+    lead: ["Humans decide. The record remembers.", "Maker-checker chains per change type: stages, quorums, distinct eyes. Domain experts give verdicts on rules: keep, change, retire. No automation can skip a human gate."],
+    second: ["A decision ledger, not a screenshot.", "Who said yes, in which role, on which revision, and why. The ledger is what the auditor reads, and what the next engineer reads three years later."],
+    screens: [["Approvals", "Approvals / CR-2318", ApprovalVisual], ["Approvals", "Approvals / decision ledger", VerdictVisual]],
+  },
+  {
+    id: "release", rail: "Release", hint: "Proof travels with the train",
+    lead: ["Every release carries its proof.", "Pinned dependencies, an SBOM, signed provenance and the parity report travel with the train. Air-gapped estates install from the same artefacts, verified the same way."],
+    second: ["The document stays alive.", "Extracted, proven, specified, implemented, re-proven, then watched on every PR. Nobody depends on the one person who remembers why; the page is the record."],
+    screens: [["Trail", "Trail / release 0.1.0", ReleaseVisual], ["Specifications", "Specifications / SPEC-LIM-07 · lifecycle", LivingDocVisual]],
   },
 ] as const;
 
 export function Platform() {
   const [active, setActive] = useState<string>(TABS[0].id);
   const refs = useRef<Record<string, HTMLElement | null>>({});
+  const railRef = useRef<HTMLDivElement>(null);
+  const [marker, setMarker] = useState({ top: 0, height: 0 });
 
   useEffect(() => {
     const io = new IntersectionObserver(
@@ -58,24 +61,33 @@ export function Platform() {
     return () => io.disconnect();
   }, []);
 
+  useEffect(() => {
+    const rail = railRef.current;
+    if (!rail) return;
+    const el = rail.querySelector<HTMLElement>(`[data-id="${active}"]`);
+    if (el) setMarker({ top: el.offsetTop + 8, height: el.offsetHeight - 16 });
+  }, [active]);
+
   return (
     <section id="platform" className="bg-band pt-24 pb-28 sm:pt-32">
       <Container>
         <Reveal className="max-w-[56rem]">
           <Tag>Platform</Tag>
           <h2 className="mt-5 text-h2 font-medium">
-            The system of record that never looks away.
+            One workspace for the whole life of a rule.
             <br />
-            <span className="text-gray">Opens every change from a spec. Blocks what the spec forbids. Records who said yes, and why, before anything ships.</span>
+            <span className="text-gray">From the line of legacy code it was found in, to the signed spec, the test, the approval and the release. And the next change, and the one after.</span>
           </h2>
         </Reveal>
 
-        <div className="mt-16 grid gap-8 lg:grid-cols-[232px_1fr] lg:gap-12">
+        <div className="mt-16 grid gap-8 lg:grid-cols-[250px_1fr] lg:gap-12">
           <div className="hidden lg:block">
-            <div className="sticky top-28 space-y-1">
+            <div ref={railRef} className="rail sticky top-28">
+              <div className="rail-marker" style={{ top: marker.top, height: marker.height }} aria-hidden="true" />
               {TABS.map((t) => (
-                <a key={t.id} href={`#${t.id}`} className="rail-btn" data-active={active === t.id}>
+                <a key={t.id} href={`#${t.id}`} className="rail-btn" data-active={active === t.id} data-id={t.id}>
                   {t.rail}
+                  <small>{t.hint}</small>
                 </a>
               ))}
             </div>
@@ -83,23 +95,17 @@ export function Platform() {
 
           <div className="space-y-6">
             {TABS.map((t) => {
-              const Second = t.Second;
+              const [[a1, t1, V1], [a2, t2, V2]] = t.screens;
               return (
-                <article
-                  key={t.id}
-                  id={t.id}
-                  data-tab={t.id}
-                  ref={(el) => { refs.current[t.id] = el; }}
-                  className="min-w-0 scroll-mt-28 overflow-hidden rounded-2xl border border-line bg-white"
-                >
+                <article key={t.id} id={t.id} data-tab={t.id} ref={(el) => { refs.current[t.id] = el; }} className="min-w-0 scroll-mt-28 overflow-hidden rounded-2xl border border-line bg-white">
                   <div className="min-w-0 p-5 sm:px-8 sm:pt-11 sm:pb-10">
                     <div className="mb-4 text-xs text-gray-2 lg:hidden">{t.rail}</div>
-                    <TwoTone as="h3" className="max-w-[520px] text-lead font-medium" strong={t.lead[0]} rest={t.lead[1]} />
-                    <Reveal className="mt-8 min-w-0"><Screen active={t.screen[0]} title={t.screen[1]}><t.Visual /></Screen></Reveal>
+                    <TwoTone as="h3" className="max-w-[560px] text-lead font-medium" strong={t.lead[0]} rest={t.lead[1]} />
+                    <Reveal className="mt-8 min-w-0"><Screen active={a1} title={t1}><V1 /></Screen></Reveal>
                   </div>
                   <div className="min-w-0 border-t border-line-3 p-5 sm:px-8 sm:pt-11 sm:pb-10">
-                    <TwoTone as="p" className="max-w-[520px] text-lead font-medium" strong={t.second[0]} rest={t.second[1]} />
-                    <Reveal className="mt-8 min-w-0"><Screen active={t.screen[2]} title={t.screen[3]}><Second /></Screen></Reveal>
+                    <TwoTone as="p" className="max-w-[560px] text-lead font-medium" strong={t.second[0]} rest={t.second[1]} />
+                    <Reveal className="mt-8 min-w-0"><Screen active={a2} title={t2}><V2 /></Screen></Reveal>
                   </div>
                 </article>
               );

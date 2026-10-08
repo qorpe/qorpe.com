@@ -1,33 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Arrow, Container, Reveal, Tag } from "./ui";
-import { Hex, Rings } from "./visuals";
-
-/* ---------- The trail island: horizon + five columns ---------- */
+import { Arrow, Container, Icon, Reveal, Tag } from "./ui";
+import { Actors, Hex } from "./visuals";
 
 const TRAIL_COLS = [
-  { strong: "Every gate writes.", rest: "What ran, on which revision, with what result." },
-  { strong: "Every approval signs.", rest: "Who said yes, in which role, at which stage." },
-  { strong: "Every AI proposal is reviewed.", rest: "Logged with the model, the prompt scope and the reviewer." },
-  { strong: "Every release is signed.", rest: "SBOM and provenance attached to the train it shipped on." },
-  { strong: "Every question has a source.", rest: "Ask the record, get the entry, not an opinion." },
+  { icon: "gate", strong: "Every gate writes.", rest: "What ran, on which revision, with what result." },
+  { icon: "approve", strong: "Every approval signs.", rest: "Who said yes, in which role, at which stage." },
+  { icon: "sparkle", strong: "Every AI proposal is reviewed.", rest: "Logged with the model, the prompt scope and the reviewer." },
+  { icon: "box", strong: "Every release is signed.", rest: "SBOM and provenance attached to the train it shipped on." },
+  { icon: "search", strong: "Every question has a source.", rest: "Ask the record, get the entry, not an opinion." },
 ];
-
-function Icon({ i }: { i: number }) {
-  const d = [
-    "M3 12h4l2-6 3 12 2-6h5",
-    "M5 12l4 4 10-10",
-    "M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z",
-    "M4 7h16M4 12h16M4 17h10",
-    "M12 21a9 9 0 110-18 9 9 0 010 18zM12 8v5l3 2",
-  ][i];
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d={d} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
 
 export function TrailIsland() {
   const ref = useRef<HTMLDivElement>(null);
@@ -61,10 +44,10 @@ export function TrailIsland() {
           <div className="horizon" aria-hidden="true" />
         </div>
         <ul className="grid grid-cols-1 border-t border-dark-line sm:grid-cols-5">
-          {TRAIL_COLS.map((c, i) => (
+          {TRAIL_COLS.map((c) => (
             <li key={c.strong} className="border-b border-dark-line px-6 py-8 sm:border-b-0 sm:border-r sm:last:border-r-0">
-              <span className="text-dark-gray"><Icon i={i} /></span>
-              <p className="mt-12 text-base font-medium">
+              <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-dark-line bg-dark-2 text-dark-ink"><Icon name={c.icon} size={22} /></span>
+              <p className="mt-10 text-base font-medium">
                 {c.strong} <span className="text-dark-gray">{c.rest}</span>
               </p>
             </li>
@@ -75,19 +58,16 @@ export function TrailIsland() {
   );
 }
 
-/* ---------- The AI block: accordion that advances, rings that turn ---------- */
-
 const PANES = [
-  { title: "Skills", text: "Coding agents drive the nine-step change cycle through skills. They open the change, run the engine and ask for review, the same way a person does." },
-  { title: "Verifiers over MCP", text: "The gates are MCP servers. An agent calls specdrift, the analyzers and the contract tests, and the result lands in the trail under the agent's name." },
-  { title: "AI gateway", text: "A policy point in front of model calls at runtime: which model, which data, which approval. On the roadmap, designed on the same approval engine." },
+  { title: "AI produces", text: "Skills extract rules with source references, write specs and tests, implement red-first. They produce; they never decide. A rule without a source is rejected; what the model cannot explain becomes an open question, never an invention." },
+  { title: "Humans decide", text: "Domain experts give verdicts: keep, change, retire. The spec owner closes open questions. The business signs the spec. Three human gates: contract sign-off, merge approval, cutover." },
+  { title: "The engine verifies", text: "Indexers read the code at symbol level with the compiler, not a model. Gates run headless in CI. Parity replays legacy against new. Deterministic: same input, same output, every time." },
 ];
 
 export function AiIsland() {
   const [pane, setPane] = useState(0);
   const [paused, setPaused] = useState(false);
   const [tick, setTick] = useState(0);
-
   useEffect(() => {
     if (paused) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -102,13 +82,14 @@ export function AiIsland() {
           <Reveal>
             <Tag>AI in delivery</Tag>
             <h2 className="mt-5 text-h2 font-medium">
-              AI inside the gates.
+              AI produces. Humans decide.
               <br />
-              <span className="text-dark-gray">Not around them.</span>
+              <span className="text-dark-gray">The engine verifies.</span>
             </h2>
+            <p className="mt-5 max-w-[26rem] text-base text-dark-gray">The claim is not that the model never errs. The claim is that unverified output cannot pass a gate, and no automation can skip a human one.</p>
             <a href="mailto:hello@qorpe.com?subject=AI%20in%20delivery" className="btn btn-primary btn-sm mt-6">See more <Arrow /></a>
           </Reveal>
-          <div className="mt-20">
+          <div className="mt-16">
             {PANES.map((p, i) => (
               <div key={p.title}>
                 <button type="button" className="w-full py-3.5 text-left text-base font-medium" aria-expanded={pane === i} onClick={() => { setPane(i); setTick((t) => t + 1); }}>
@@ -125,14 +106,12 @@ export function AiIsland() {
           </div>
         </div>
         <Reveal className="flex items-center justify-center px-0 py-8 sm:px-8 lg:py-24">
-          <Rings className="max-w-[560px]" />
+          <Actors />
         </Reveal>
       </Container>
     </section>
   );
 }
-
-/* ---------- Build on it ---------- */
 
 export function BuildIsland() {
   return (
@@ -145,6 +124,7 @@ export function BuildIsland() {
               <br />
               <span className="text-dark-gray">Build on the same train.</span>
             </h2>
+            <p className="mt-5 max-w-[26rem] text-base text-dark-gray">The same verifiers the platform runs are a command line, an MCP server and a package. Your own assistant can call them; your own pipeline can run them.</p>
             <a href="https://github.com/qorpe" className="btn btn-primary btn-sm mt-6">View the source <Arrow /></a>
           </Reveal>
         </div>

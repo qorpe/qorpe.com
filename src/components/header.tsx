@@ -13,21 +13,23 @@ const MENUS: Menu[] = [
     label: "Platform",
     columns: [
       {
-        heading: "Control Room",
+        heading: "Charter",
         items: [
-          { title: "Specifications", desc: "Versioned rules and contracts", href: "#specify" },
-          { title: "Gates", desc: "Deterministic checks that block", href: "#verify" },
-          { title: "Approvals", desc: "Maker-checker chains, recorded", href: "#approve" },
-          { title: "Audit trail", desc: "One record an auditor can read", href: "#trail" },
-          { title: "Releases", desc: "Pinned, signed, with an SBOM", href: "#release" },
+          { title: "Rules and specifications", desc: "Cards with evidence, specs that sign", href: "#specify" },
+          { title: "Boards", desc: "Agile with the spec on the card", href: "#plan" },
+          { title: "Workspace", desc: "Build with the assistant, inside the gates", href: "#build" },
+          { title: "Gates", desc: "Touch, boundary, drift, parity", href: "#verify" },
+          { title: "Approvals", desc: "Maker-checker, verdicts, a ledger", href: "#approve" },
+          { title: "Releases and trail", desc: "Proof travels with the train", href: "#release" },
         ],
       },
       {
-        heading: "AI in delivery",
+        heading: "Method",
         items: [
-          { title: "Skills", desc: "Agents drive the cycle, not around it", href: "#ai" },
-          { title: "Verifiers over MCP", desc: "The same gates a person calls", href: "#ai" },
-          { title: "AI gateway", desc: "Policy and trail for model calls", href: "#ai" },
+          { title: "Three actors", desc: "AI produces, humans decide, the engine verifies", href: "#ai" },
+          { title: "Six stages, four gates", desc: "Extracted to re-proven, touch to parity", href: "#verify" },
+          { title: "Dual-track sprints", desc: "Discovery one slice ahead", href: "#plan" },
+          { title: "Living documents", desc: "The page is the record", href: "#release" },
         ],
       },
       {
@@ -35,7 +37,7 @@ const MENUS: Menu[] = [
         items: [
           { title: "On-premises", desc: "Inside your estate, your identity", href: "#scale" },
           { title: "Air-gapped", desc: "A supported configuration", href: "#scale" },
-          { title: "Signed releases", desc: "SBOM and provenance on every train", href: "#scale" },
+          { title: "Integrations", desc: "Git, Jira, identity, registries", href: "#ready" },
         ],
       },
     ],
@@ -48,19 +50,20 @@ const MENUS: Menu[] = [
     label: "Modules",
     columns: [
       {
-        heading: "Enterprise modules",
+        heading: "Products",
         items: [
           { title: "API Portal", desc: "Governed partner onboarding and sandbox", href: "#modules" },
           { title: "Coexist", desc: "Old and new side by side, reconciled", href: "#modules" },
           { title: "Approvals", desc: "The approval engine for any workflow", href: "#modules" },
+          { title: "File Exchange", desc: "Governed batch and partner transfers", href: "#modules" },
         ],
       },
       {
-        heading: "Rails",
+        heading: "The Goldpath train",
         items: [
-          { title: "File Exchange", desc: "Governed batch and partner transfers", href: "#modules" },
-          { title: "Idempotency", desc: "Exactly-once for payment-grade operations", href: "#modules" },
-          { title: "Messaging", desc: "A swappable bus seam", href: "#modules" },
+          { title: "Ring A, the floor", desc: "Service and API defaults, data, messaging", href: "#modules" },
+          { title: "Ring B, cross-cutting", desc: "Auth, idempotency, audit trail, tenancy, locking", href: "#modules" },
+          { title: "Ring C, heavy duty", desc: "Jobs, bulk, archival, notification, campaign", href: "#modules" },
         ],
       },
     ],
@@ -74,7 +77,7 @@ const MENUS: Menu[] = [
 const LINKS = [
   { label: "Services", href: "#services" },
   { label: "Sectors", href: "#sectors" },
-  { label: "Changelog", href: "#changelog" },
+  { label: "Method", href: "#ai" },
 ];
 
 function Chev() {
@@ -122,8 +125,8 @@ export function Announcement() {
   if (gone) return null;
   return (
     <div className="relative bg-dark text-dark-ink">
-      <a href="mailto:hello@qorpe.com?subject=Control%20Room%20preview" className="mx-auto flex h-12 max-w-[1168px] items-center justify-center gap-1.5 px-6 text-sm font-medium">
-        <span className="hidden sm:inline">Control Room is in private preview. Request access</span><span className="sm:hidden">Control Room: private preview</span> <Arrow />
+      <a href="mailto:hello@qorpe.com?subject=Charter%20preview" className="mx-auto flex h-12 max-w-[1168px] items-center justify-center gap-1.5 px-6 text-sm font-medium">
+        <span className="hidden sm:inline">Charter is in private preview. Request access</span><span className="sm:hidden">Charter: private preview</span> <Arrow />
       </a>
       <button type="button" aria-label="Dismiss banner" onClick={() => setGone(true)} className="absolute right-4 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-dark-gray hover:text-dark-ink">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
@@ -156,7 +159,7 @@ export function Header() {
       <Container className="relative flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5" aria-label="Qorpe home">
           <span className="mark h-7 w-7 text-ink" aria-hidden="true" />
-          <span className="text-[18px] font-semibold tracking-[-0.02em]">qorpe</span>
+          <span className="text-[18px] font-semibold tracking-[-0.02em]">Qorpe</span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
