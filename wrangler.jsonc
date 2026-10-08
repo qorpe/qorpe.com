@@ -1,5 +1,6 @@
 // Workers Builds config: the Next.js static export (`npm run build` → ./out)
 // served as Worker assets — the same setup as mockifyr/specdrift/mediant.qorpe.com.
+// The custom domain is declared here so `wrangler deploy` binds qorpe.com itself.
 {
   "name": "qorpe-com",
   "compatibility_date": "2026-09-01",
@@ -7,5 +8,6 @@
     "directory": "./out",
     "not_found_handling": "404-page"
   },
+  "routes": [{ "pattern": "qorpe.com", "custom_domain": true }],
   "observability": { "enabled": true }
 }
