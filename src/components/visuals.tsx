@@ -1,4 +1,5 @@
-import { Dot, Icon, PRODUCT } from "./ui";
+import { Dot, Icon } from "./ui";
+import { PRODUCT } from "./product";
 
 /* ---------- Primitives ---------- */
 
@@ -484,57 +485,6 @@ export function IntegrationsVisual() {
         </div>
       </div>
     </div>
-  );
-}
-
-/* ---------- The three actors (dark) ---------- */
-
-export function Actors() {
-  const f = (n: number) => n.toFixed(2);
-  return (
-    <svg viewBox="0 0 720 560" className="h-auto w-full" aria-hidden="true">
-      <g transform="translate(360 280)">
-        <g fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="1">
-          <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="70s" repeatCount="indefinite" />
-          <ellipse rx="300" ry="120" />
-          <ellipse rx="300" ry="120" transform="rotate(60)" />
-          <ellipse rx="300" ry="120" transform="rotate(-60)" />
-        </g>
-        <g fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="1">
-          {[80, 140, 200].map((r) => <circle key={r} r={r} />)}
-        </g>
-        {[["AI produces", 0], ["Humans decide", 120], ["The engine verifies", 240]].map(([label, deg]) => {
-          const a = ((deg as number) * Math.PI) / 180;
-          const x = Math.cos(a) * 200, y = Math.sin(a) * 200;
-          return (
-            <g key={label as string} transform={`translate(${f(x)} ${f(y)})`}>
-              <circle r="22" fill="#101010" stroke="rgba(255,255,255,0.35)" />
-              <circle r="4" fill="#fff" />
-              <text y="44" textAnchor="middle" fill="rgba(255,255,255,0.75)" fontSize="13" fontFamily="var(--font-sans)">{label as string}</text>
-            </g>
-          );
-        })}
-        <circle r="26" fill="none" stroke="rgba(255,255,255,0.5)" />
-        <circle r="5" fill="#fff" />
-        <circle r="3" fill="#fff">
-          <animateMotion dur="10s" repeatCount="indefinite" path="M -300 0 a 300 120 0 1 0 600 0 a 300 120 0 1 0 -600 0" />
-        </circle>
-        <circle r="3" fill="#fff" opacity="0.7">
-          <animateMotion dur="13s" begin="2s" repeatCount="indefinite" path="M -150 -259.8 a 300 120 0 1 0 300 519.6 a 300 120 0 1 0 -300 -519.6" />
-        </circle>
-      </g>
-    </svg>
-  );
-}
-
-export function Hex() {
-  const pts = (r: number, cx: number, cy: number) => Array.from({ length: 6 }).map((_, i) => { const a = (Math.PI / 3) * i + Math.PI / 6; return `${(cx + r * Math.cos(a)).toFixed(2)},${(cy + r * Math.sin(a)).toFixed(2)}`; }).join(" ");
-  return (
-    <svg viewBox="0 0 520 360" className="draw h-auto w-full" aria-hidden="true">
-      {[40, 80, 120, 160].map((r) => <polygon key={r} points={pts(r, 260, 180)} fill="none" stroke="rgba(255,255,255,0.2)" />)}
-      {[0, 1, 2, 3, 4, 5].map((i) => { const a = (Math.PI / 3) * i + Math.PI / 6; return <line key={i} x1={(260 + 40 * Math.cos(a)).toFixed(2)} y1={(180 + 40 * Math.sin(a)).toFixed(2)} x2={(260 + 160 * Math.cos(a)).toFixed(2)} y2={(180 + 160 * Math.sin(a)).toFixed(2)} stroke="rgba(255,255,255,0.12)" />; })}
-      <circle cx="260" cy="180" r="4" fill="#fff" />
-    </svg>
   );
 }
 

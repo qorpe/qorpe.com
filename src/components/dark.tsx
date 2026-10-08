@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Arrow, Container, Icon, Reveal, Tag } from "./ui";
-import { Actors, Hex } from "./visuals";
-import { TrailLine } from "./trail-line";
+import { ActorsFlow, SurfacesFlow, TrailFlow } from "./dark-visuals";
 
 const TRAIL_COLS = [
   { icon: "gate", strong: "Every gate writes.", rest: "What ran, on which revision, with what result." },
@@ -22,7 +21,7 @@ export function TrailIsland() {
           <h2 className="mt-3 text-giant font-semibold">One trail.</h2>
           <p className="mx-auto mt-5 max-w-[34rem] text-base text-dark-gray">Six stages, one line. A rule enters as evidence and leaves as a signed, tested, released decision. The same line is read again on every later change.</p>
         </div>
-        <Reveal className="px-2 pt-10 pb-6 sm:px-6"><TrailLine /></Reveal>
+        <Reveal className="px-2 pt-8 pb-4 sm:px-6"><TrailFlow /></Reveal>
         <ul className="grid grid-cols-1 border-t border-dark-line sm:grid-cols-5">
           {TRAIL_COLS.map((c) => (
             <li key={c.strong} className="border-b border-dark-line px-6 py-8 sm:border-b-0 sm:border-r sm:last:border-r-0">
@@ -86,7 +85,7 @@ export function AiIsland() {
           </div>
         </div>
         <Reveal className="flex items-center justify-center px-0 py-8 sm:px-8 lg:py-24">
-          <Actors />
+          <ActorsFlow />
         </Reveal>
       </Container>
     </section>
@@ -109,7 +108,7 @@ export function BuildIsland() {
           </Reveal>
         </div>
         <Reveal className="flex items-center justify-center px-0 py-8 sm:px-8 lg:py-16">
-          <div className="w-full max-w-[460px]"><Hex /></div>
+          <div className="w-full max-w-[520px]"><SurfacesFlow /></div>
         </Reveal>
       </Container>
     </section>

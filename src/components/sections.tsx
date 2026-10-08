@@ -1,4 +1,5 @@
-import { Arrow, Chevron, Container, Icon, PRODUCT, Reveal, Tag } from "./ui";
+import { Arrow, Chevron, Container, Icon, Reveal, Tag } from "./ui";
+import { PRODUCT } from "./product";
 import { IntegrationsVisual, LineChart, ProductWindow } from "./visuals";
 import { Newsletter } from "./newsletter";
 
@@ -33,20 +34,27 @@ export function Hero() {
   );
 }
 
-/* ---------- Capability strip ---------- */
+/* ---------- What Qorpe is, in three parts ---------- */
 
-const STRIP = [
-  "Rule cards with evidence", "Signed specifications", "Four blocking gates", "Maker-checker approvals", "AI workspace",
-  "Git, Jira and identity", "Living documents", "Air-gapped install", "SBOM and provenance", "Sector packs",
+const TRIAD = [
+  { icon: "spec", kicker: "The product", name: `Qorpe ${PRODUCT}`, text: "The on-premises workspace where rules, specifications, approvals and AI-assisted development live together, with one trail.", href: "#platform" },
+  { icon: "box", kicker: "The foundation", name: "The Goldpath train", text: "The open-source .NET platform and the enterprise modules it carries. Charter runs on it; so do the products you deploy.", href: "#modules" },
+  { icon: "users", kicker: "The practice", name: "A small team that puts it in", text: "Discovery, pilot and adoption for banks, insurers and telecoms. Every engagement ends in something your team keeps.", href: "#services" },
 ];
 
 export function Strip() {
   return (
     <section className="bg-band">
       <Container className="py-10">
-        <ul className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-5">
-          {STRIP.map((s) => (
-            <li key={s} className="flex items-center justify-center bg-band px-4 py-6 text-center text-sm font-medium text-ink-2">{s}</li>
+        <ul className="grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-3">
+          {TRIAD.map((t) => (
+            <li key={t.name} className="bg-band">
+              <a href={t.href} className="flex h-full flex-col gap-3 p-6 transition-colors duration-300 hover:bg-white">
+                <span className="flex items-center gap-2 text-xs text-gray"><Icon name={t.icon} size={14} />{t.kicker}</span>
+                <span className="text-lead font-medium">{t.name}</span>
+                <span className="text-sm text-gray">{t.text}</span>
+              </a>
+            </li>
           ))}
         </ul>
       </Container>

@@ -7,7 +7,7 @@ import {
   Sparkles, Users, Workflow, type LucideIcon,
 } from "lucide-react";
 
-export const PRODUCT = "Charter";
+export { PRODUCT } from "./product";
 
 export function Container({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <div className={`mx-auto w-full max-w-[1168px] px-6 ${className}`}>{children}</div>;
