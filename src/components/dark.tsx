@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Arrow, Container, Icon, Reveal, Tag } from "./ui";
-import { ActorsFlow, SurfacesFlow, TrailFlow } from "./dark-visuals";
+import { Wire } from "./wire";
 
 const TRAIL_COLS = [
   { icon: "gate", strong: "Every gate writes.", rest: "What ran, on which revision, with what result." },
@@ -19,9 +19,9 @@ export function TrailIsland() {
         <div className="pt-24 text-center sm:pt-32">
           <p className="text-base font-medium text-dark-gray">The one thing a regulator asks for</p>
           <h2 className="mt-3 text-giant font-semibold">One trail.</h2>
-          <p className="mx-auto mt-5 max-w-[34rem] text-base text-dark-gray">Six stages, one line. A rule enters as evidence and leaves as a signed, tested, released decision. The same line is read again on every later change.</p>
+          <p className="mx-auto mt-5 max-w-[34rem] text-base text-dark-gray">One line through everything that moves: a rule enters as evidence and leaves as a signed, tested, released decision. The same line is read again on every later change.</p>
         </div>
-        <Reveal className="px-2 pt-8 pb-4 sm:px-6"><TrailFlow /></Reveal>
+        <div className="h-[340px] sm:h-[420px]"><Wire variant="wave" /></div>
         <ul className="grid grid-cols-1 border-t border-dark-line sm:grid-cols-5">
           {TRAIL_COLS.map((c) => (
             <li key={c.strong} className="border-b border-dark-line px-6 py-8 sm:border-b-0 sm:border-r sm:last:border-r-0">
@@ -84,9 +84,7 @@ export function AiIsland() {
             ))}
           </div>
         </div>
-        <Reveal className="flex items-center justify-center px-0 py-8 sm:px-8 lg:py-24">
-          <ActorsFlow />
-        </Reveal>
+        <div className="h-[420px] lg:h-auto lg:min-h-[560px]"><Wire variant="globe" /></div>
       </Container>
     </section>
   );
@@ -99,17 +97,15 @@ export function BuildIsland() {
         <div className="px-0 py-16 sm:px-8 lg:py-24">
           <Reveal>
             <h2 className="text-h2 font-medium">
-              CLI. MCP. NuGet.
+              CLI. MCP. Packages.
               <br />
               <span className="text-dark-gray">Build on the same train.</span>
             </h2>
-            <p className="mt-5 max-w-[26rem] text-base text-dark-gray">The same verifiers the platform runs are a command line, an MCP server and a package. Your own assistant can call them; your own pipeline can run them.</p>
+            <p className="mt-5 max-w-[26rem] text-base text-dark-gray">The same verifiers the platform runs are a command line, an MCP server and a package on your feed. Your own assistant can call them; your own pipeline can run them.</p>
             <a href="https://github.com/qorpe" className="btn btn-primary btn-sm mt-6">View the source <Arrow /></a>
           </Reveal>
         </div>
-        <Reveal className="flex items-center justify-center px-0 py-8 sm:px-8 lg:py-16">
-          <div className="w-full max-w-[520px]"><SurfacesFlow /></div>
-        </Reveal>
+        <div className="h-[360px] lg:h-auto lg:min-h-[420px]"><Wire variant="tunnel" /></div>
       </Container>
     </section>
   );

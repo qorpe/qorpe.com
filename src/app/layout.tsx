@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   keywords: [
     "governed delivery", "regulated software delivery", "spec-driven development", "maker-checker approvals",
     "audit trail", "AI-native SDLC", "on-premises", "air-gapped", "banking software", "insurance software", "telecom software",
-    "Goldpath", ".NET platform", "specdrift", "SBOM", "provenance",
+    "Goldpath", "specdrift", "SBOM", "provenance",
   ],
   authors: [{ name: "Qorpe", url: SITE }],
   creator: "Qorpe",

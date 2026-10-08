@@ -458,7 +458,7 @@ export function IntegrationsVisual() {
     ["Source", ["GitHub", "GitLab", "Azure DevOps", "Bitbucket"]],
     ["Work", ["Jira", "Azure Boards", "Linear"]],
     ["Identity", ["Entra ID", "Keycloak", "Okta"]],
-    ["Delivery", ["NuGet feed", "Container registry", "Sigstore"]],
+    ["Delivery", ["Package feed", "Container registry", "Sigstore"]],
     ["Assistants", ["Claude Code", "MCP servers", "Your agent"]],
   ];
   return (

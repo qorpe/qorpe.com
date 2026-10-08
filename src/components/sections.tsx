@@ -38,7 +38,7 @@ export function Hero() {
 
 const TRIAD = [
   { icon: "spec", kicker: "The product", name: `Qorpe ${PRODUCT}`, text: "The on-premises workspace where rules, specifications, approvals and AI-assisted development live together, with one trail.", href: "#platform" },
-  { icon: "box", kicker: "The foundation", name: "The Goldpath train", text: "The open-source .NET platform and the enterprise modules it carries. Charter runs on it; so do the products you deploy.", href: "#modules" },
+  { icon: "box", kicker: "The foundation", name: "The Goldpath train", text: "The open-source platform and the enterprise modules it carries. Charter runs on it; so do the products you deploy.", href: "#modules" },
   { icon: "users", kicker: "The practice", name: "A small team that puts it in", text: "Discovery, pilot and adoption for banks, insurers and telecoms. Every engagement ends in something your team keeps.", href: "#services" },
 ];
 
@@ -170,7 +170,7 @@ const LAYERS: { name: string; kicker: string; items: string[]; dark?: boolean }[
   { name: "Ring C", kicker: "Heavy-duty modules and ops", items: ["Jobs", "Bulk", "Archival", "Notification", "Campaign", "Console"] },
   { name: "Ring B", kicker: "Cross-cutting capabilities", items: ["Auth", "Idempotency", "AuditTrail", "MultiTenancy", "SoftDelete", "Locking", "Caching", "DataProtection"] },
   { name: "Ring A", kicker: "The floor, always on", items: ["ServiceDefaults", "ApiDefaults", "Data with outbox", "Messaging seam", "Abstractions"] },
-  { name: "Substrate", kicker: "Microsoft, taken as-is. Configured, never wrapped.", items: [".NET LTS", "Aspire", "EF Core", "MassTransit", "Quartz", "OpenTelemetry"], dark: true },
+  { name: "Substrate", kicker: "The vendor platform, taken as-is. Configured, never wrapped.", items: ["Runtime", "Orchestration", "Data access", "Messaging", "Scheduling", "Telemetry"], dark: true },
 ];
 
 export function Modules() {
@@ -217,7 +217,7 @@ export function Modules() {
             </div>
           ))}
           <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line px-6 py-4 text-sm text-gray">
-            <span>Goldpath on NuGet: 0.1.0-preview.8. The console, the CLI and the analyzers ship on the same train.</span>
+            <span>Goldpath 0.1.0-preview.8 is published. The console, the CLI and the analyzers ship on the same train.</span>
             <a href="https://github.com/qorpe/goldpath" className="inline-flex items-center gap-1.5 font-medium text-ink-2 hover:text-ink">Goldpath on GitHub <Arrow /></a>
           </div>
         </Reveal>
@@ -271,7 +271,7 @@ export function Services() {
 const NOTES = [
   { date: "7 Sep 2026", tag: "Train", title: "0.1.0-preview.8", text: "Campaign revision R2: asynchronous targets, shared ceilings, keyset takeover." },
   { date: "3 Sep 2026", tag: "Module", title: "File Exchange", text: "Governed batch and partner transfers, the seventh module on the console." },
-  { date: "1 Sep 2026", tag: "Train", title: "The platform train", text: "Goldpath.Sdk, the adopter CLI, Approvals and File Exchange on NuGet; SBOM and provenance on every train." },
+  { date: "1 Sep 2026", tag: "Train", title: "The platform train", text: "The SDK, the adopter CLI, Approvals and File Exchange published for the first time; SBOM and provenance on every train." },
   { date: "27 Aug 2026", tag: "Mock", title: "Mockifyr 1.19.1", text: "The mock system behind every sandbox we ship, one container image." },
 ];
 
