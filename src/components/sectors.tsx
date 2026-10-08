@@ -50,28 +50,28 @@ export function Sectors() {
           <a href="mailto:hello@qorpe.com?subject=Sectors" className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-ink-2 hover:text-ink">Read more <Arrow /></a>
         </Reveal>
         <Reveal className="mt-14 overflow-hidden rounded-2xl border border-line">
-          <div className="flex divide-x divide-line border-b border-line" role="tablist" aria-label="Sectors">
+          <div className="flex divide-x divide-line overflow-x-auto border-b border-line" role="tablist" aria-label="Sectors">
             {SECTORS.map((t, k) => (
               <button key={t.name} type="button" role="tab" aria-selected={i === k} className="sector-tab flex items-center justify-center gap-2" data-active={i === k} onClick={() => setI(k)}>
                 <Icon name={t.icon} size={16} />{t.name}
               </button>
             ))}
           </div>
-          <div key={s.name} className="grid lg:grid-cols-[1fr_1.25fr]" style={{ animation: "rise .35s cubic-bezier(.2,.8,.3,1)" }}>
-            <div className="p-8 sm:p-10">
+          <div key={s.name} className="grid min-w-0 lg:grid-cols-[1fr_1.25fr]" style={{ animation: "rise .35s cubic-bezier(.2,.8,.3,1)" }}>
+            <div className="min-w-0 p-6 sm:p-10">
               <div className="text-xs font-medium text-gray-2">{s.name}</div>
               <p className="mt-5 text-h3 font-medium">{s.stat}</p>
               <p className="mt-4 text-lead text-gray">{s.label}</p>
               <p className="mt-6 text-sm text-gray">{s.text}</p>
-              <dl className="mt-8 grid grid-cols-3 gap-4 border-t border-line pt-6">
+              <dl className="mt-8 grid grid-cols-1 gap-4 border-t border-line pt-6 sm:grid-cols-3">
                 {s.facts.map((f) => (
                   <div key={f[0]}><dt className="text-xs text-gray-2">{f[0]}</dt><dd className="mt-1 text-sm font-medium">{f[1]}</dd></div>
                 ))}
               </dl>
             </div>
-            <div className="dark-zone bg-dark p-8 text-dark-ink sm:p-10">
+            <div className="dark-zone min-w-0 bg-dark p-6 text-dark-ink sm:p-10">
               <div className="flex items-center justify-between text-xs text-dark-gray"><span>Sector pack · {s.name}</span><span>what the pack brings</span></div>
-              <ul className="mt-4 grid grid-cols-2 gap-2 text-sm">
+              <ul className="mt-4 grid grid-cols-1 gap-2 text-sm sm:grid-cols-2">
                 {s.pack.map((p) => (
                   <li key={p} className="flex items-center gap-2 rounded-lg border border-dark-line bg-dark-2 px-3 py-2"><Dot tone="ok" />{p}</li>
                 ))}
@@ -81,7 +81,7 @@ export function Sectors() {
                 <p className="mt-2 text-sm">{s.rule[1]}</p>
                 <p className="mt-2 font-mono text-xs text-dark-gray">source: {s.rule[2]}</p>
               </div>
-              <div className="mt-4 flex items-center gap-2 text-xs text-dark-gray">
+              <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-dark-gray">
                 <span>Approval chain:</span>
                 {s.chain.map((c, k) => (
                   <span key={c} className="flex items-center gap-2"><span className="rounded-md border border-dark-line px-2 py-0.5 text-dark-ink/90">{c}</span>{k < s.chain.length - 1 ? <span>→</span> : null}</span>

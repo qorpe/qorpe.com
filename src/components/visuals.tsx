@@ -100,7 +100,7 @@ export function ProductWindow() {
         </div>
         <div className="grid sm:grid-cols-[230px_1fr]">
           <Sidebar active="Home" />
-          <div className="min-h-[560px] px-6 py-6 sm:px-14 sm:py-12">
+          <div className="min-h-[560px] min-w-0 px-5 py-6 sm:px-14 sm:py-12">
             <div className="flex items-center justify-between text-xs text-gray">
               <span>Home</span>
               <span className="hidden sm:inline">Tuesday, 7 October · eu-central · on-premises</span>
@@ -118,7 +118,7 @@ export function ProductWindow() {
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-gray-2">Answers cite the entry they come from</span>
+                  <span className="hidden text-xs text-gray-2 md:inline">Answers cite the entry they come from</span>
                   <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-ink text-white"><Icon name="send" size={14} /></span>
                 </div>
               </div>
@@ -230,7 +230,7 @@ export function BoardVisual() {
   ];
   return (
     <Frame title="Sprint 14 · Limits" right="Definition of Ready enforced">
-      <div className="grid grid-cols-4 gap-2 p-3">
+      <div className="grid min-w-[620px] grid-cols-4 gap-2 p-3">
         {cols.map(([name, items]) => (
           <div key={name} className="rounded-lg bg-band p-2">
             <div className="mb-2 flex items-center justify-between px-1 text-xs text-gray"><span>{name}</span><span>{items.length}</span></div>
@@ -472,7 +472,7 @@ export function IntegrationsVisual() {
             </div>
             <span className="btn btn-secondary btn-sm px-3">Add connection</span>
           </div>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid min-w-0 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {groups.flatMap(([g, items]) => items.map((it) => (
               <div key={it} className="flex items-center justify-between rounded-xl border border-line px-3.5 py-3 text-sm">
                 <span className="flex items-center gap-2.5"><span className="inline-flex h-7 w-7 items-center justify-center rounded-md bg-band text-gray"><Icon name={g === "Source" ? "git" : g === "Work" ? "board" : g === "Identity" ? "lock" : g === "Delivery" ? "box" : "sparkle"} size={14} /></span>{it}</span>
