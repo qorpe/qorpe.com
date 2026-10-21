@@ -18,7 +18,7 @@ const MENUS: Menu[] = [
           { title: "Rules and specifications", desc: "Cards with evidence, specs that sign", href: "#specify" },
           { title: "Boards", desc: "Agile with the spec on the card", href: "#plan" },
           { title: "Workspace", desc: "Build with the assistant, inside the gates", href: "#build" },
-          { title: "Gates", desc: "Touch, boundary, drift, parity", href: "#verify" },
+          { title: "Gates", desc: "Touch and parity; boundary and drift on the roadmap", href: "#verify" },
           { title: "Approvals", desc: "Maker-checker, verdicts, a ledger", href: "#approve" },
           { title: "Releases and trail", desc: "Proof travels with the train", href: "#release" },
         ],
@@ -27,7 +27,7 @@ const MENUS: Menu[] = [
         heading: "Method",
         items: [
           { title: "Three actors", desc: "AI produces, humans decide, the engine verifies", href: "#ai" },
-          { title: "Six stages, four gates", desc: "Extracted to re-proven, touch to parity", href: "#verify" },
+          { title: "Six stages and their gates", desc: "Extracted to re-proven, touch to parity", href: "#verify" },
           { title: "Dual-track sprints", desc: "Discovery one slice ahead", href: "#plan" },
           { title: "Living documents", desc: "The page is the record", href: "#release" },
         ],
@@ -125,8 +125,8 @@ export function Announcement() {
   if (gone) return null;
   return (
     <div className="relative bg-dark text-dark-ink">
-      <a href="mailto:hello@qorpe.com?subject=Charter%20preview" className="mx-auto flex h-12 max-w-[1168px] items-center justify-center gap-1.5 px-6 text-sm font-medium">
-        <span className="hidden sm:inline">Charter is in private preview. Request access</span><span className="sm:hidden">Charter: private preview</span> <Arrow />
+      <a href="mailto:hello@qorpe.com?subject=Charter%20early%20access" className="mx-auto flex h-12 max-w-[1168px] items-center justify-center gap-1.5 px-6 text-sm font-medium">
+        <span className="hidden sm:inline">Charter is in design. Join the early-access list</span><span className="sm:hidden">Charter: in design</span> <Arrow />
       </a>
       <button type="button" aria-label="Dismiss banner" onClick={() => setGone(true)} className="absolute right-4 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-dark-gray hover:text-dark-ink">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>

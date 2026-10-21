@@ -24,8 +24,8 @@ const TABS = [
     screens: [["Changes", "Changes / CR-2318 · workspace", WorkspaceVisual], ["Changes", "Changes / PR #412", PrVisual]],
   },
   {
-    id: "verify", icon: "gate", rail: "Verify", hint: "Four gates that block",
-    lead: ["Gates block, they do not warn.", "Touch, boundary, drift, parity. A failing gate closes the merge; a suppression without a written reason is itself a failure. The gates run headless in CI, identical to the local command."],
+    id: "verify", icon: "gate", rail: "Verify", hint: "Gates that block",
+    lead: ["Gates block, they do not warn.", "Touch and parity today; a boundary gate and a spec-to-code drift gate are on the roadmap. A failing gate closes the merge; a suppression without a written reason is itself a failure. The gates run headless in CI, identical to the local command."],
     second: ["The referee is a test, not an opinion.", "When code moves and the rule does not, the characterization test runs. Red means behaviour changed and the rule must move with it. Green means a refactor, and one recorded note closes it."],
     screens: [["Gates", "Gates / PR #412", GatesVisual], ["Gates", "Gates / finding SA0401", FindingVisual]],
   },

@@ -61,7 +61,6 @@ const JSON_LD = {
       operatingSystem: "On-premises, Linux containers",
       url: SITE,
       description: DESCRIPTION,
-      offers: { "@type": "Offer", availability: "https://schema.org/PreOrder", price: "0", priceCurrency: "USD", description: "Private preview" },
       publisher: { "@id": `${SITE}/#org` },
     },
     {

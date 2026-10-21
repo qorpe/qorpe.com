@@ -202,7 +202,7 @@ export function SpecTableVisual() {
     ["D6", "Export", "0–365", "1.80%", "500"],
   ];
   return (
-    <Frame title="SPEC-LIM-07 · Commission decision table" right="DMN · unique-hit · rev 14 · signed">
+    <Frame title="SPEC-LIM-07 · Commission decision table" right="DMN-style · unique-hit · rev 14 · signed">
       <table className="w-full text-sm">
         <thead>
           <tr className="text-left text-xs text-gray">
@@ -323,18 +323,18 @@ export function PrVisual() {
 export function GatesVisual() {
   const gates = [
     ["touch", "Code changed, rule did not?", "Passed", "ok"],
-    ["boundary", "Dependency crosses the context map?", "Passed", "ok"],
-    ["drift", "Code deviates from the spec?", "Passed", "ok"],
+    ["boundary", "Dependency crosses the context map?", "Roadmap", "idle"],
+    ["drift", "Code deviates from the spec?", "Roadmap", "idle"],
     ["parity", "Legacy equals new?", "Blocked", "warn"],
   ];
   return (
-    <Frame title="Gates · PR #412" right="3 of 4 passed">
+    <Frame title="Gates · PR #412" right="1 of 2 passed · 2 on the roadmap">
       <ul className="divide-y divide-line-3 text-sm">
         {gates.map((g) => (
           <li key={g[0]} className="grid grid-cols-[80px_1fr_auto] items-center gap-3 px-4 py-3">
-            <span className="flex items-center gap-2.5 font-mono text-xs"><Dot tone={g[3] as "ok" | "warn"} />{g[0]}</span>
+            <span className="flex items-center gap-2.5 font-mono text-xs"><Dot tone={g[3] as "ok" | "warn" | "idle"} />{g[0]}</span>
             <span className="text-gray">{g[1]}</span>
-            <span className={g[3] === "ok" ? "text-ok" : "text-warn"}>{g[2]}</span>
+            <span className={g[3] === "ok" ? "text-ok" : g[3] === "idle" ? "text-gray" : "text-warn"}>{g[2]}</span>
           </li>
         ))}
       </ul>
@@ -434,7 +434,7 @@ export function LivingDocVisual() {
     ["Specified", "SPEC-LIM-07 rev 14 · signed", "ok"],
     ["Implemented", "PR #412 · commit carries the id", "ok"],
     ["Re-proven", "CHAR-0002 · 8 of 8 on new", "ok"],
-    ["Steady state", "touch + drift on every PR", "accent"],
+    ["Steady state", "touch on every PR; drift on the roadmap", "accent"],
   ];
   return (
     <Frame title="Living document · SPEC-LIM-07" right="the page is the record">

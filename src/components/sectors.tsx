@@ -22,7 +22,7 @@ const SECTORS = [
     pack: ["Policy lifecycle", "Claims decision tables", "Product configuration", "Actuarial sign-off"],
     rule: ["RULE-P031", "Claim above the deductible band pays the floor, never below", "Claims/Settle.cs:118"],
     chain: ["Product owner", "Actuary", "Compliance"],
-    facts: [["Spec shape", "DMN tables"], ["Change cadence", "quarterly revisions"], ["Trail", "per product version"]],
+    facts: [["Spec shape", "DMN-style decision tables"], ["Change cadence", "quarterly revisions"], ["Trail", "per product version"]],
   },
   {
     name: "Telecom", icon: "signal",
