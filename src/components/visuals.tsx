@@ -325,10 +325,9 @@ export function GatesVisual() {
     ["touch", "Code changed, rule did not?", "Passed", "ok"],
     ["boundary", "Dependency crosses the context map?", "Roadmap", "idle"],
     ["drift", "Code deviates from the spec?", "Roadmap", "idle"],
-    ["parity", "Legacy equals new?", "Blocked", "warn"],
   ];
   return (
-    <Frame title="Gates · PR #412" right="1 of 2 passed · 2 on the roadmap">
+    <Frame title="Gates · PR #412" right="1 of 1 passed · 2 on the roadmap">
       <ul className="divide-y divide-line-3 text-sm">
         {gates.map((g) => (
           <li key={g[0]} className="grid grid-cols-[80px_1fr_auto] items-center gap-3 px-4 py-3">

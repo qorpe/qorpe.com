@@ -32,7 +32,7 @@ const SECTORS = [
     pack: ["Order lifecycle", "Product catalogue", "Partner API portal", "Contract tests"],
     rule: ["RULE-O012", "An order with a pending port-in cannot activate before the port completes", "Orders/Activate.cs:67"],
     chain: ["Catalogue owner", "Partner manager", "Operations"],
-    facts: [["Spec shape", "lifecycles"], ["Sandbox", "per partner application"], ["Exceptions", "recorded, not improvised"]],
+    facts: [["Spec shape", "decision tables, EARS"], ["Sandbox", "per partner application"], ["Exceptions", "recorded, not improvised"]],
   },
 ];
 

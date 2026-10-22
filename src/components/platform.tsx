@@ -7,7 +7,7 @@ import { ApprovalVisual, BoardVisual, DorVisual, FindingVisual, GatesVisual, Liv
 const TABS = [
   {
     id: "specify", icon: "spec", rail: "Specify", hint: "Rules and specs, as records",
-    lead: ["Rules and specifications live here, not in documents.", "A rule card carries its source reference, its confidence and its open questions. A spec is the signed answer: a decision table, a lifecycle or EARS sentences, every line compiling to a test."],
+    lead: ["Rules and specifications live here, not in documents.", "A rule card carries its source reference, its confidence and its open questions. A spec is the signed answer: a decision table, EARS sentences or Gherkin scenarios, every line compiling to a test."],
     second: ["Two artefacts, on purpose.", "The card may hold doubt and contradiction; the spec holds only answers. Investigation file and court verdict, and every line of the verdict cites the file."],
     screens: [["Rules", "Rules / Temlik", RulesVisual], ["Specifications", "Specifications / SPEC-LIM-07", SpecTableVisual]],
   },
@@ -25,7 +25,7 @@ const TABS = [
   },
   {
     id: "verify", icon: "gate", rail: "Verify", hint: "Gates that block",
-    lead: ["Gates block, they do not warn.", "Touch and parity today; a boundary gate and a spec-to-code drift gate are on the roadmap. A failing gate closes the merge; a suppression without a written reason is itself a failure. The gates run headless in CI, identical to the local command."],
+    lead: ["Gates block, they do not warn.", "The touch gate blocks today; a boundary gate and a spec-to-code drift gate are on the roadmap. Parity is a harness that replays legacy against new, not a gate. A failing gate closes the merge; a suppression without a written reason is itself a failure. The gates run headless in CI, identical to the local command."],
     second: ["The referee is a test, not an opinion.", "When code moves and the rule does not, the characterization test runs. Red means behaviour changed and the rule must move with it. Green means a refactor, and one recorded note closes it."],
     screens: [["Gates", "Gates / PR #412", GatesVisual], ["Gates", "Gates / finding SA0401", FindingVisual]],
   },
@@ -39,7 +39,7 @@ const TABS = [
     id: "release", icon: "box", rail: "Release", hint: "Proof travels with the train",
     lead: ["Every release carries its proof.", "Pinned dependencies, an SBOM, signed provenance and the parity report travel with the train. Air-gapped estates install from the same artefacts, verified the same way."],
     second: ["The document stays alive.", "Extracted, proven, specified, implemented, re-proven, then watched on every PR. Nobody depends on the one person who remembers why; the page is the record."],
-    screens: [["Trail", "Trail / release 0.1.0", ReleaseVisual], ["Specifications", "Specifications / SPEC-LIM-07 · lifecycle", LivingDocVisual]],
+    screens: [["Trail", "Trail / release 0.1.0", ReleaseVisual], ["Specifications", "Specifications / SPEC-LIM-07 · living document", LivingDocVisual]],
   },
 ] as const;
 

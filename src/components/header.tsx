@@ -18,7 +18,7 @@ const MENUS: Menu[] = [
           { title: "Rules and specifications", desc: "Cards with evidence, specs that sign", href: "#specify" },
           { title: "Boards", desc: "Agile with the spec on the card", href: "#plan" },
           { title: "Workspace", desc: "Build with the assistant, inside the gates", href: "#build" },
-          { title: "Gates", desc: "Touch and parity; boundary and drift on the roadmap", href: "#verify" },
+          { title: "Gates", desc: "Touch today; boundary and drift on the roadmap", href: "#verify" },
           { title: "Approvals", desc: "Maker-checker, verdicts, a ledger", href: "#approve" },
           { title: "Releases and trail", desc: "Proof travels with the train", href: "#release" },
         ],
@@ -27,7 +27,7 @@ const MENUS: Menu[] = [
         heading: "Method",
         items: [
           { title: "Three actors", desc: "AI produces, humans decide, the engine verifies", href: "#ai" },
-          { title: "Six stages and their gates", desc: "Extracted to re-proven, touch to parity", href: "#verify" },
+          { title: "Six stages and their gates", desc: "From extracted to re-proven", href: "#verify" },
           { title: "Dual-track sprints", desc: "Discovery one slice ahead", href: "#plan" },
           { title: "Living documents", desc: "The page is the record", href: "#release" },
         ],
