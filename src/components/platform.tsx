@@ -72,7 +72,10 @@ export function Platform() {
     <section id="platform" className="bg-band pt-24 pb-28 sm:pt-32">
       <Container>
         <Reveal className="max-w-[56rem]">
-          <Tag>Platform</Tag>
+          <div className="flex flex-wrap gap-2">
+            <Tag>Platform</Tag>
+            <Tag>Roadmap</Tag>
+          </div>
           <h2 className="mt-5 text-h2 font-medium">
             One workspace for the whole life of a rule.
             <br />
