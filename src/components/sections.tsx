@@ -12,7 +12,7 @@ export function Hero() {
         <div className="mx-auto max-w-[68rem] text-center">
           <Reveal>
             <a href="#platform" className="inline-flex h-[30px] items-center gap-1.5 rounded-[9px] border border-line-3 px-3 text-base font-medium text-ink hover:bg-chip">
-              {PRODUCT} 0.1, private preview <Chevron />
+              {PRODUCT} is in design · early-access list <Chevron />
             </a>
           </Reveal>
           <Reveal delay={1}>
@@ -371,7 +371,7 @@ export function Footer() {
       </Container>
       <Container className="flex flex-col gap-3 border-t border-dark-line py-6 text-xs text-dark-gray sm:flex-row sm:items-center sm:justify-between">
         <span>© 2026 Qorpe. All rights reserved.</span>
-        <span>Screens and data on this page are illustrative. {PRODUCT} is in private preview.</span>
+        <span>Screens and data on this page are illustrative. {PRODUCT} is in design; what is marked roadmap is not built yet.</span>
       </Container>
     </footer>
   );

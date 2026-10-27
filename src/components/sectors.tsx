@@ -22,7 +22,7 @@ const SECTORS = [
     pack: ["Policy lifecycle", "Claims decision tables", "Product configuration", "Actuarial sign-off"],
     rule: ["RULE-P031", "Claim above the deductible band pays the floor, never below", "Claims/Settle.cs:118"],
     chain: ["Product owner", "Actuary", "Compliance"],
-    facts: [["Spec shape", "DMN tables"], ["Change cadence", "quarterly revisions"], ["Trail", "per product version"]],
+    facts: [["Spec shape", "DMN-style decision tables"], ["Change cadence", "quarterly revisions"], ["Trail", "per product version"]],
   },
   {
     name: "Telecom", icon: "signal",
@@ -32,7 +32,7 @@ const SECTORS = [
     pack: ["Order lifecycle", "Product catalogue", "Partner API portal", "Contract tests"],
     rule: ["RULE-O012", "An order with a pending port-in cannot activate before the port completes", "Orders/Activate.cs:67"],
     chain: ["Catalogue owner", "Partner manager", "Operations"],
-    facts: [["Spec shape", "lifecycles"], ["Sandbox", "per partner application"], ["Exceptions", "recorded, not improvised"]],
+    facts: [["Spec shape", "decision tables, EARS"], ["Sandbox", "per partner application"], ["Exceptions", "recorded, not improvised"]],
   },
 ];
 
